@@ -1,0 +1,44 @@
+version: "3.7"
+
+services:
+
+  nodejs:
+    build: ./nodejs
+    restart: always
+    ports:
+      - 3000:3000
+    depends_on:
+      - mysql
+    networks:
+      - frontend
+      - backend
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: covid_cinema
+
+  mysql:
+    image: mysql:8.0
+    restart: always
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+    networks:
+      - backend
+      - db
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: covid_cinema
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - db
+
+networks:
+  frontend:
+  backend:
+  db:

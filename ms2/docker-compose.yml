@@ -3,8 +3,12 @@ version: "3.7"
 services:
 
   nodejs:
-    build: ./nodejs
+    image: node:15-alpine
+    working_dir: /usr/src/app
     restart: always
+    volumes:
+      - ./nodejs:/usr/src/app
+    command: sh -c "npm install && node server.js"
     ports:
       - 3000:3000
     depends_on:

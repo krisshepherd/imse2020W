@@ -30,14 +30,12 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// using the angular webapp
+app.use(express.static(process.cwd()+"/angular/dist/my-app"));
+
 // simple route
 app.get("/", (req, res) => {
-  connection.query("SELECT * FROM movies", (err, rows) => {
-    if (err) throw err;
-    console.log("Data received from DB!");
-    res.json(rows);
-  });
-  // res.json({ message: "Welcome to milestone2!" });
+  res.sendFile(process.cwd()+"/angular/dist/my-app/index.html");
 });
 
 // set port, listen for requests

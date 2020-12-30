@@ -1,20 +1,15 @@
 version: "3.7"
 
-services:
+services:  
 
-  nodejs:
-    image: node:15-alpine
-    working_dir: /usr/src/app
+  webapp:
+    build: .
     restart: always
-    volumes:
-      - ./nodejs:/usr/src/app
-    command: sh -c "npm install && node server.js"
     ports:
       - 3000:3000
     depends_on:
       - mysql
     networks:
-      - frontend
       - backend
     environment:
       MYSQL_HOST: mysql
@@ -43,6 +38,5 @@ services:
       - db
 
 networks:
-  frontend:
   backend:
   db:

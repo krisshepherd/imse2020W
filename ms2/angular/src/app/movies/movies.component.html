@@ -1,1 +1,72 @@
-<p>movies works!</p>
+<input class= searchbar type="text" placeholder="Enter movie title">
+<mat-accordion class="searchbar">
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Advanced Search
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-form-field appearance="fill">
+      <mat-label>Release Year</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let year of yearsList" [value]="year">{{year}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Age Restriction</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let age of ages" [value]="age.value">
+          {{age.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-expansion-panel>
+</mat-accordion>
+
+  <table class="moviesTable">
+  <thead>
+    <td>
+      Name:
+    </td>
+    <td>
+      Release Date:
+    </td>
+    <td>
+      Movie Runtime:
+    </td>
+    <td>
+      Director:
+    </td>
+    <td>
+      Rating:
+    </td>
+  </thead>
+  <tr>
+    <td><li class="nav-item"><a routerLink='moviedetails'>Iron Man</a></li></td>
+    <td>2008</td>
+    <td>02:06:00</td>
+    <td>Jon Favreau</td>
+    <td>12A</td>
+  </tr>
+  <tr>
+    <td><li class="nav-item"><a routerLink='/'>Iron Man</a></li></td>
+    <td>2008</td>
+    <td>02:06:00</td>
+    <td>Jon Favreau</td>
+    <td>12A</td>
+  </tr>
+  <tr>
+    <td><a>Iron Man</a></td>
+    <td>2008</td>
+    <td>02:06:00</td>
+    <td>Jon Favreau</td>
+    <td>12A</td>
+  </tr>
+    <tr>
+    <td><a>Iron Man</a></td>
+    <td>2008</td>
+    <td>02:06:00</td>
+    <td>Jon Favreau</td>
+    <td>12A</td>
+  </tr>
+</table>

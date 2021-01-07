@@ -1,0 +1,25 @@
+.moviesTable{
+  width: 700px;
+  display:block;
+  margin: 30px;
+  margin-left:  auto;
+  margin-right: auto;
+  padding: 10px;
+  background-color:rgb(206, 180, 180) ;
+  text-align: center;
+}
+thead{
+  background-color:rgb(173, 136, 136);
+}
+td{
+  width: 140px;
+}
+
+.searchbar{
+  display: block;
+  width: 700px;
+  padding: 10px;
+
+  margin-left:  auto;
+  margin-right: auto;
+}

@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'movies', component: MoviesComponent},
   { path: 'statistics', component: StatisticsComponent},
-  { path: '../moviedetails', component: MoviedetailsComponent}
+  { path: 'moviedetails', component: MoviedetailsComponent}
 
 ];
 

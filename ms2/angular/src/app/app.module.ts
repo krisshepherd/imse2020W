@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatSelectModule} from '@angular/material/select';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -24,7 +23,8 @@ import { MoviedetailsComponent } from './moviedetails/moviedetails.component';
     MoviesComponent,
     HeaderComponent,
     StatisticsComponent,
-    MoviedetailsComponent
+    MoviedetailsComponent,
+
   ],
   imports: [
     BrowserModule,

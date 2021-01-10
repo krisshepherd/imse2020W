@@ -15,7 +15,7 @@ export class BackendService {
     return of(MOVIES);
   }
 
-  getMovie(): Observable<Object> {
+  getMovie(title: String, releseDate: number): Observable<Object> {
     return of(MOVIE);
   }
 }

@@ -1,4 +1,4 @@
-[
+export const MOVIES: any[] = [
     {
         "title" : "Iron Man",
         "release_date" : "2008",

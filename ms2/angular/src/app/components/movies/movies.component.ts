@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {BackendService} from '../../services/backend.service';
+import { Movie } from "../../dataclasses/movie";
 
 interface Age {
   value: string;
@@ -21,7 +22,7 @@ export class MoviesComponent implements OnInit {
     {value: '16A-2', viewValue: '16A'},
     {value: '18A-2', viewValue: '18A'}
   ];
-  movies: Object[] = [];
+  movies: Movie[] = [];
   /*movies = [
     { name: 'Iron Man', releaseDate: '2008', runtime: '02:06:00', director: 'Jon Favreau', rating: '12A'},
     { name: 'Iron Man 2', releaseDate: '2010', runtime: '02:06:00', director: 'Jon Favreau', rating: '12A'},

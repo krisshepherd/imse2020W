@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from 'src/app/services/backend.service';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { Movie } from 'src/app/dataclasses/movie';
+
 
 @Component({
   selector: 'app-moviedetails',
@@ -12,19 +13,15 @@ export class MoviedetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private backendService: BackendService) { }
 
-  movie: Object;
-  title: String;
-  releaseDate: number;
+  movie: Movie = new Movie();
+
   ngOnInit(): void {
-    this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => { this.title = params.get("title"); this.releaseDate = params.get("releasedate"); } )
-    );
-    this.backendService.getMovie(this.title, this.releaseDate).subscribe(
-      movie => this.movie = movie
-    );
+    let title: any = this.route.snapshot.paramMap.get('title');
+    let releaseDate: any = this.route.snapshot.paramMap.get('releasedate');
+
+    this.backendService.getMovie(title, releaseDate).subscribe( movie => this.movie = movie);    
   }
 
 }

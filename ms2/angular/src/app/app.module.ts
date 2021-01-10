@@ -7,13 +7,13 @@ import {MatSelectModule} from '@angular/material/select';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { MoviesComponent } from './movies/movies.component';
-import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
+import { MoviesComponent } from './components/movies/movies.component';
+import { HeaderComponent } from './components/header/header.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { StatisticsComponent } from './statistics/statistics.component';
-import { MoviedetailsComponent } from './moviedetails/moviedetails.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import { MoviedetailsComponent } from './components/moviedetails/moviedetails.component';
 
 @NgModule({
   declarations: [

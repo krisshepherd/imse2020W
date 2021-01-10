@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { MoviedetailsComponent } from './moviedetails/moviedetails.component';
-import { MoviesComponent } from './movies/movies.component';
-import { StatisticsComponent } from './statistics/statistics.component';
+import { HomeComponent } from './components/home/home.component';
+import { MoviedetailsComponent } from './components/moviedetails/moviedetails.component';
+import { MoviesComponent } from './components/movies/movies.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 
 const routes: Routes = [
   //{ path: '', component: LoginComponent, pathMatch: 'full' }

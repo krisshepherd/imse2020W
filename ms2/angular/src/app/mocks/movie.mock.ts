@@ -4,5 +4,5 @@ export const MOVIE = {
     "running_time" : "02:06:00",
     "director" : "Jon Favreau",
     "age_restriction" : "12A",
-    "4DX" : "false"
+    "DX" : "false"
 }

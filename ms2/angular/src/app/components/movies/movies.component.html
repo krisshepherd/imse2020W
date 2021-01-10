@@ -46,11 +46,11 @@
     </td>
   </thead>
   <tr *ngFor="let movie of movies">
-    <td><li class="nav-item"><a routerLink='moviedetails'>{{movie.name}}</a></li></td>
-    <td>{{movie.releaseDate}}</td>
-    <td>{{movie.runtime}}</td>
-    <td>{{movie.director}}</td>
-    <td>{{movie.rating}}</td>
-    <td>No</td>
+    <td><li class="nav-item"><a routerLink='moviedetails'>{{movie["title"]}}</a></li></td>
+    <td>{{movie["release_date"]}}</td>
+    <td>{{movie["running_time"]}}</td>
+    <td>{{movie["director"]}}</td>
+    <td>{{movie["age_restriction"]}}</td>
+    <td>{{movie["4DX"]}}</td>
   </tr>
 </table>

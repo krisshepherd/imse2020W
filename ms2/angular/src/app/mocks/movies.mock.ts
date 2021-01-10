@@ -5,7 +5,7 @@ export const MOVIES: any[] = [
         "running_time" : "02:06:00",
         "director" : "Jon Favreau",
         "age_restriction" : "12A",
-        "4DX" : "false"
+        "4DX" : "No"
     },
     {
         "title" : "Iron Man 2",
@@ -13,7 +13,7 @@ export const MOVIES: any[] = [
         "running_time" : "02:04:00",
         "director" : "Jon Favreau",
         "age_restriction" : "12A",
-        "4DX" : "false"
+        "4DX" : "No"
     },
     {
         "title" : "Iron Man 3",
@@ -21,6 +21,6 @@ export const MOVIES: any[] = [
         "running_time" : "02:10:00",
         "director" : "Shane Black",
         "age_restriction" : "12A",
-        "4DX" : "false"
+        "4DX" : "No"
     }
 ]

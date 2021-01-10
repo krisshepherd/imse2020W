@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Onsite } from 'src/app/dataclasses/onsite';
+import { BackendService } from 'src/app/services/backend.service';
 
 @Component({
   selector: 'app-purchasedtickets',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PurchasedticketsComponent implements OnInit {
 
-  constructor() { }
+  onsiteTickets: Onsite[] = [];
+
+  constructor(private backendService: BackendService) { }
 
   ngOnInit(): void {
+    this.backendService.getOnsiteTickets().subscribe(
+      tickets => this.onsiteTickets = tickets
+    )
   }
 
 }

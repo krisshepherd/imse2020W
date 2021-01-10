@@ -1,41 +1,28 @@
-<table>
-
-  <thead>
-    <th>On-site tickets</th>
-    <tr>
-      <td>
-        ID
-      </td>
-      <td>
-        Price
-      </td>
-      <td>
-        Seat No.
-      </td>
-      <td>
-        Refund Data
-      </td>
+  <table>
+    <thead>
+      <th>On-site tickets</th>
+      <tr>
+        <td>ID</td>
+        <td>Price</td>
+        <td>Seat No.</td>
+        <td>Refund Data</td>
+      </tr>
+    </thead>
+    <tr *ngFor="let ticket of onsiteTickets">
+      <td>{{ticket.code}}</td>
+      <td>{{ticket.price}}</td>
+      <td>{{ticket.row}}{{ticket.column}}</td>
+      <td>{{ticket.refundDate}}</td>
     </tr>
-  </thead>
-</table>
-
+  </table>
 <table>
-
   <thead>
     <th>Streaming tickets</th>
     <tr>
-      <td>
-        Price
-      </td>
-      <td>
-        Unique Code
-      </td>
-      <td>
-        Link
-      </td>
-      <td>
-        Refund Date (Optional)
-      </td>
+      <td>Price</td>
+      <td>Unique Code</td>
+      <td>Link</td>
+      <td>Refund Date (Optional)</td>
     </tr>
   </thead>
 </table>

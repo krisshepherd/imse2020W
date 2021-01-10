@@ -1,14 +1,18 @@
 .movieFrame{
   display: block;
-  margin-top: 40px;
+  margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
   width: 900px;
-  height: 500px;
-  background-color: yellow;
+  height: 600px;
+  background-color: rgb(224, 226, 190);
   padding: 10px;
 
 }
+body{
+  background-color: rgb(185, 164, 189)
+}
+
 .movieHead{
   display: inline-block;
   width: 300px;
@@ -21,8 +25,8 @@
 }
 .movieButton{
   display: block;
-  width: 200px;
-  height: 50px;
+  width: 130px;
+  height: 40px;
   margin: 10px 33px;
 
 }

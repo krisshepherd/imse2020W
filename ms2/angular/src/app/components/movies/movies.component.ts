@@ -20,6 +20,12 @@ export class MoviesComponent implements OnInit {
     {value: '16A-2', viewValue: '16A'},
     {value: '18A-2', viewValue: '18A'}
   ];
+  movies = [
+    { name: 'Iron Man', releaseDate: '2008', runtime: '02:06:00', director: 'Jon Favreau', rating: '12A'},
+    { name: 'Iron Man 2', releaseDate: '2010', runtime: '02:06:00', director: 'Jon Favreau', rating: '12A'},
+    { name: 'Iron Man 3', releaseDate: '2012', runtime: '02:06:00', director: 'Jon Favreau', rating: '12A'},
+    { name: 'The Avengers', releaseDate: '2014', runtime: '02:06:00', director: 'Jon Favreau', rating: '12A'}
+  ]
   constructor() { }
 
   ngOnInit(): void {

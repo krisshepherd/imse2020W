@@ -20,6 +20,7 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <button mat-raised-button color="accent" type="submit">Search</button>
   </mat-expansion-panel>
 </mat-accordion>
 
@@ -40,33 +41,16 @@
     <td>
       Rating:
     </td>
+    <td>
+      4DX:
+    </td>
   </thead>
-  <tr>
-    <td><li class="nav-item"><a routerLink='moviedetails'>Iron Man</a></li></td>
-    <td>2008</td>
-    <td>02:06:00</td>
-    <td>Jon Favreau</td>
-    <td>12A</td>
-  </tr>
-  <tr>
-    <td><li class="nav-item"><a routerLink='/'>Iron Man</a></li></td>
-    <td>2008</td>
-    <td>02:06:00</td>
-    <td>Jon Favreau</td>
-    <td>12A</td>
-  </tr>
-  <tr>
-    <td><a>Iron Man</a></td>
-    <td>2008</td>
-    <td>02:06:00</td>
-    <td>Jon Favreau</td>
-    <td>12A</td>
-  </tr>
-    <tr>
-    <td><a>Iron Man</a></td>
-    <td>2008</td>
-    <td>02:06:00</td>
-    <td>Jon Favreau</td>
-    <td>12A</td>
+  <tr *ngFor="let movie of movies">
+    <td><li class="nav-item"><a routerLink='moviedetails'>{{movie.name}}</a></li></td>
+    <td>{{movie.releaseDate}}</td>
+    <td>{{movie.runtime}}</td>
+    <td>{{movie.director}}</td>
+    <td>{{movie.rating}}</td>
+    <td>No</td>
   </tr>
 </table>

@@ -47,7 +47,7 @@
   </thead>
   <div *ngFor="let movie of movies">
     <tr *ngIf="movie.title.includes(searchField)">
-      <td><li class="nav-item"><a [routerLink]="['moviedetails', movie.title, movie.releaseDate]">{{movie.title}}</a></li></td>
+      <td><a [routerLink]="['moviedetails', movie.title, movie.releaseDate]">{{movie.title}}</a></td>
       <td>{{movie.releaseDate}}</td>
       <td>{{movie.runtime}}</td>
       <td>{{movie.director}}</td>

@@ -17,39 +17,46 @@ export class MoviesComponent implements OnInit {
 
   releaseYear = new FormControl();
 
-  searchField: string = '';
+  searchParamTitle: string = '';
+  searchParamYear: string = '';
+  searchParamRating: string = '';
 
-  yearsList: string[] = [];// ['2007', '2008', '2012', '2014', '2018', '2020'];
-
-  ages: Age[] = [];/*[
-    {value: '12A-0', viewValue: '12A'},
-    {value: '14A-1', viewValue: '14A'},
-    {value: '16A-2', viewValue: '16A'},
-    {value: '18A-2', viewValue: '18A'}
-  ];*/
+  yearsList: Set<string> = new Set();
+  selectedYear: string = '';
+  ratingList: Set<string> = new Set();
+  selectedRating: string = ''
 
   movies: Movie[] = [];
-
-  /*movies = [
-    { name: 'Iron Man', releaseDate: '2008', runtime: '02:06:00', director: 'Jon Favreau', rating: '12A'},
-    { name: 'Iron Man 2', releaseDate: '2010', runtime: '02:06:00', director: 'Jon Favreau', rating: '12A'},
-    { name: 'Iron Man 3', releaseDate: '2012', runtime: '02:06:00', director: 'Jon Favreau', rating: '12A'},
-    { name: 'The Avengers', releaseDate: '2014', runtime: '02:06:00', director: 'Jon Favreau', rating: '12A'}
-  ]*/
 
   constructor(private backendService: BackendService ) {
   }
 
   ngOnInit(): void {
-    this.backendService.getMovies().subscribe(movies => this.movies = movies);
+    this.backendService.getMovies().subscribe(movies => {
+      this.movies = movies;
+      for (let movie of movies){
+        this.yearsList.add(movie.releaseDate);;
+        this.ratingList.add(movie.rating);
+      }
+    });
   }
 
-  getYearList(movies: Movie[]){
-    for (let movie of movies){
-      this.yearsList.push(movie.releaseDate);
-      // gather the age ratings here too
-    }
+  selectYear(year: string){
+    this.selectedYear = year;
+    console.log(year);
   }
 
+  selectRating(rating: string){
+    this.selectedRating = rating;
+    console.log(rating);
+  }
+
+  setDetailedSearchParams(){
+    console.log("clicked!!")
+    this.searchParamYear = this.selectedYear;
+    this.searchParamRating = this.selectedRating;
+    console.log(this.selectedYear);
+    console.log(this.selectedRating);
+  }
 }
 

@@ -1,4 +1,4 @@
-<input class= searchbar type="text" placeholder="Enter movie title">
+<input class=searchbar type="text" placeholder="Enter movie title" [(ngModel)]="searchField">
 <mat-accordion class="searchbar">
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
@@ -45,12 +45,14 @@
       4DX:
     </td>
   </thead>
-  <tr *ngFor="let movie of movies">
-    <td><li class="nav-item"><a [routerLink]="['moviedetails', movie.title, movie.releaseDate]">{{movie.title}}</a></li></td>
-    <td>{{movie.releaseDate}}</td>
-    <td>{{movie.runtime}}</td>
-    <td>{{movie.director}}</td>
-    <td>{{movie.rating}}</td>
-    <td>{{movie.dx}}</td>
+  <div *ngFor="let movie of movies">
+    <tr *ngIf="movie.title.includes(searchField)">
+      <td><li class="nav-item"><a [routerLink]="['moviedetails', movie.title, movie.releaseDate]">{{movie.title}}</a></li></td>
+      <td>{{movie.releaseDate}}</td>
+      <td>{{movie.runtime}}</td>
+      <td>{{movie.director}}</td>
+      <td>{{movie.rating}}</td>
+      <td>{{movie.dx}}</td>
   </tr>
+  </div>
 </table>

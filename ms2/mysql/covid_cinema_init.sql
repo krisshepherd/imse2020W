@@ -154,6 +154,6 @@ VALUES
 	('kristof.juhasz@uniwien.at', 'Kristof', 'Juhasz'),
     ('mehrudin.sabani@uniwien.at', 'Mehrudin', 'Sabani');
 INSERT INTO stream_sales (ticket_code, email)
-VALUES ('Z6XV8F', 'kristof.juhasz@uniwien.at'), ('NAZ467', 'kristof.juhasz@uniwien.at');
+VALUES ('Z6XV8F', 'mehrudin.sabani@uniwien.at'), ('NAZ467', 'kristof.juhasz@uniwien.at');
 INSERT INTO on_site_sales (ticket_code, email)
-VALUES ('WE6Z25', 'mehrudin.sabani@uniwien.at'), ('ZV2XDS', 'mehrudin.sabani@uniwien.at');
+VALUES ('WE6Z25', 'mehrudin.sabani@uniwien.at'), ('ZV2XDS', 'kristof.juhasz@uniwien.at');

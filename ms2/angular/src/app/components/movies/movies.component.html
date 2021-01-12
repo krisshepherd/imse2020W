@@ -8,20 +8,20 @@
     </mat-expansion-panel-header>
     <mat-form-field appearance="fill">
       <mat-label>Release Year</mat-label>
-      <mat-select (selectionChange)="selectYear($event.value)">
+      <mat-select (selectionChange)="selectYear($event.value)" [value]="selectedYear">
         <mat-option *ngFor="let year of yearsList" [value]="year">{{year}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Age Restriction</mat-label>
-      <mat-select (selectionChange)="selectRating($event.value)">
+      <mat-select (selectionChange)="selectRating($event.value)" [value]="selectedRating">
         <mat-option *ngFor="let rating of ratingList" [value]="rating">
           {{rating}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-raised-button color="accent" type="submit" (click)="setDetailedSearchParams()">Search</button>
-    <button mat-raised-button type="submit" >Clear Filter</button>
+    <button mat-raised-button color="accent" type="submit" (click)="setSearchFilters()">Search</button>
+    <button mat-raised-button type="submit" (click)="resetSearchFilters()">Clear Filter</button>
   </mat-expansion-panel>
 </mat-accordion>
 
@@ -46,12 +46,10 @@
       4DX:
     </td>
   </thead>
-  <div *ngFor="let movie of movies">
-    <tr *ngIf="(movie.title.includes(searchParamTitle)) &&
-              (movie.releaseDate.includes(searchParamYear)) &&
-              (movie.rating.match(searchParamRating))">
-      <td><a [routerLink]="['moviedetails', movie.title, movie.releaseDate]">{{movie.title}}</a></td>
-      <td>{{movie.releaseDate}}</td>
+  <div *ngFor="let movie of filteredMovies">
+    <tr *ngIf="movie.title.toLowerCase().includes(searchParamTitle.toLowerCase())">
+      <td><a [routerLink]="['moviedetails', movie.title, movie.release_date]">{{movie.title}}</a></td>
+      <td>{{movie.release_date}}</td>
       <td>{{movie.runtime}}</td>
       <td>{{movie.director}}</td>
       <td>{{movie.rating}}</td>

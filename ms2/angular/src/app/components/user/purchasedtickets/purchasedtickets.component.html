@@ -9,10 +9,10 @@
     </tr>
   </thead>
   <tr *ngFor="let ticket of onsiteTickets">
-    <td>{{ticket.code}}</td>
+    <td>{{ticket.ticket_code}}</td>
     <td>{{ticket.price}}</td>
-    <td>{{ticket.row}}{{ticket.column}}</td>
-    <td>{{ticket.refundDate}}</td>
+    <td>{{ticket.seat_row}}{{ticket.seat_col}}</td>
+    <td>{{ticket.refund_date}}</td>
     <td><button>Refund</button></td>
   </tr>
 </table>
@@ -22,12 +22,10 @@
   <tr>
     <td>Price</td>
     <td>Unique Code</td>
-    <td>Link</td>
   </tr>
 </thead>
 <tr *ngFor="let ticket of streamingTickets">
   <td>{{ticket.price}}</td>
-  <td>{{ticket.code}}</td>
-  <td>{{ticket.link}}</td>
+  <td>{{ticket.ticket_code}}</td>
 </tr>
 </table>

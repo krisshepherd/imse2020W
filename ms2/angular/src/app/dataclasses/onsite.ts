@@ -1,7 +1,7 @@
 export class Onsite {
-    code: string = '';
-    refundDate: string = '';
+    ticket_code: string = '';
+    refund_date: string = '';
     price: number = 0;
-    row: number = 1;
-    column: string = 'A'
+    seat_row: number = 1;
+    seat_col: string = 'A';
 }

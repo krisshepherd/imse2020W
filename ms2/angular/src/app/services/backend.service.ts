@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Movie } from "../dataclasses/movie";
+import { Onsite } from "../dataclasses/onsite";
+import { Streaming } from '../dataclasses/streaming';
 import { MOVIE } from '../mocks/movie.mock';
-import { MOVIES } from "../mocks/movies.mock";
 import { ONSITE_TICKETS } from '../mocks/onsite.mock';
 import { STREAMING_TICKETS } from '../mocks/streaming.mock';
 
@@ -15,18 +16,18 @@ export class BackendService {
   constructor(private http: HttpClient) {}
 
   getMovies(): Observable<Movie[]> {
-    return of(MOVIES);
+    return this.http.get<Movie[]>('http://localhost:3000/api/movies');
   }
 
   getMovie(title: String, releseDate: number): Observable<Movie> {
     return of(MOVIE);
   }
 
-  getOnsiteTickets(){
-    return of(ONSITE_TICKETS);
+  getOnsiteTickets(): Observable<Onsite[]>{
+    return this.http.get<Onsite[]>('http://localhost:3000/api/onsitetickets');
   }
   
   getStreamingTickets(){
-    return of (STREAMING_TICKETS);
+    return this.http.get<Streaming[]>('http://localhost:3000/api/streamtickets');
   }
 }

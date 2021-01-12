@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const dbConfig = require("./db.prod.config");
+const dbConfig = require("./db.dev.config");
 const mysql = require("mysql2");
 
 const connection = mysql.createConnection({
@@ -19,10 +19,10 @@ connection.connect((err) => {
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:4200"
 };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());

@@ -1,12 +1,10 @@
 export const STREAMING_TICKETS = [
     {
         "price" : 10,
-        "code": "ABC123",
-        "link" : "watchmovie123.com/32412"
+        "ticket_code": "ABC123"
     },
     {
         "price" : 13,
-        "code": "DEF456",
-        "link" : "watchmovie123.com/3qr132"
+        "ticket_code": "DEF456"
     }
 ];

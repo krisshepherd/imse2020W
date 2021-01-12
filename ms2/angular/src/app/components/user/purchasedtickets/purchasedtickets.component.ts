@@ -17,10 +17,10 @@ export class PurchasedticketsComponent implements OnInit {
 
   ngOnInit(): void {
     this.backendService.getOnsiteTickets().subscribe(
-      site_tickets => this.onsiteTickets = site_tickets
+      tickets => this.onsiteTickets = tickets
     )
     this.backendService.getStreamingTickets().subscribe(
-      streaming_tickets => this.streamingTickets = streaming_tickets
+      tickets => this.streamingTickets = tickets
     )
   }
 

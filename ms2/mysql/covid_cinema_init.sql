@@ -13,7 +13,7 @@ CREATE TABLE seats (
     seat_col CHAR(1),
     cinema_id INT NOT NULL,
     weightlimit INT NOT NULL,
-    4DX BOOLEAN NOT NULL DEFAULT FALSE,
+    dx BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY (seat_row, seat_col, cinema_id),
 	FOREIGN KEY (cinema_id)
 		REFERENCES cinema (cinema_id)
@@ -25,7 +25,7 @@ CREATE TABLE movies (
     runtime TIME NOT NULL,
     director VARCHAR(255) NOT NULL,
     rating VARCHAR(255) NOT NULL,
-    4DX BOOLEAN NOT NULL DEFAULT FALSE,
+    dx BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY (title, release_date)
 );
 CREATE TABLE screenings (

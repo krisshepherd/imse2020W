@@ -1,16 +1,16 @@
 export const ONSITE_TICKETS = [
     {
-        "code": "WE6Z25",
-        "refundDate" : "2021-01-22",
+        "ticket_code": "WE6Z25",
+        "refund_date" : "2021-01-22",
         "price" : 10,
-        "row" : 3,
-        "column" : "C"
+        "seat_row" : 3,
+        "seat_col" : "C"
     },
     {
-        "code": "ZV2XDS",
-        "refundDate" : "2021-01-22",
+        "ticket_code": "ZV2XDS",
+        "refund_date" : "2021-01-22",
         "price" : 10,
-        "row" : 3,
-        "column" : "D"
+        "seat_row" : 3,
+        "seat_col" : "D"
     }
 ];

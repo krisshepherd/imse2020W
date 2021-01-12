@@ -18,24 +18,23 @@ export class MoviesComponent implements OnInit {
   releaseYear = new FormControl();
 
   searchParamTitle: string = '';
-  searchParamYear: string = '';
-  searchParamRating: string = '';
 
   yearsList: Set<string> = new Set();
   selectedYear: string = '';
   ratingList: Set<string> = new Set();
   selectedRating: string = ''
 
-  movies: Movie[] = [];
+  queriedMovies: Movie[] = [];
+  filteredMovies: Movie[] = [];
 
-  constructor(private backendService: BackendService ) {
-  }
+  constructor(private backendService: BackendService ) { }
 
   ngOnInit(): void {
     this.backendService.getMovies().subscribe(movies => {
-      this.movies = movies;
-      for (let movie of movies){
-        this.yearsList.add(movie.releaseDate);;
+      this.queriedMovies = movies;
+      this.filteredMovies = movies;
+      for (let movie of this.queriedMovies){
+        this.yearsList.add(movie.release_date);;
         this.ratingList.add(movie.rating);
       }
     });
@@ -43,20 +42,25 @@ export class MoviesComponent implements OnInit {
 
   selectYear(year: string){
     this.selectedYear = year;
-    console.log(year);
   }
 
   selectRating(rating: string){
     this.selectedRating = rating;
-    console.log(rating);
   }
 
-  setDetailedSearchParams(){
-    console.log("clicked!!")
-    this.searchParamYear = this.selectedYear;
-    this.searchParamRating = this.selectedRating;
-    console.log(this.selectedYear);
-    console.log(this.selectedRating);
+  setSearchFilters(){
+    this.filteredMovies = [];
+    for (let movie of this.queriedMovies){
+      if((movie.release_date == this.selectedYear || this.selectedYear == '')
+          && (movie.rating == this.selectedRating || this.selectedRating == ''))
+        this.filteredMovies.push(movie);
+    }
+  }
+
+  resetSearchFilters(){
+    this.selectedYear = '';
+    this.selectedRating = '';
+    this.filteredMovies = this.queriedMovies;
   }
 }
 

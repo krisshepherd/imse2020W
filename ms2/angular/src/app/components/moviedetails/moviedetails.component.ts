@@ -26,5 +26,4 @@ export class MoviedetailsComponent implements OnInit {
       movie => this.movie = movie
     );
   }
-
 }

@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const dbConfig = require("./db.config");
+const dbConfig = require("./db.prod.config");
 const mysql = require("mysql2");
 
 const connection = mysql.createConnection({
@@ -33,9 +33,34 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // using the angular webapp
 app.use(express.static(process.cwd()+"/angular/dist/my-app"));
 
-// simple route
+// default route
 app.get("/", (req, res) => {
   res.sendFile(process.cwd()+"/angular/dist/my-app/index.html");
+});
+
+app.get("/api/movies", (req, res) => {
+  connection.query("SELECT * FROM movies", function(err, result, fields) {
+    if (err) throw err;
+    res.json(result);
+  });
+});
+
+app.get("/api/onsitetickets", (req, res) => {
+  email = 'mehrudin.sabani@uniwien.at';
+  connection.query('SELECT * FROM  on_site_tickets INNER JOIN on_site_sales USING (ticket_code) WHERE email = ?', [email],
+    function(err, result) {
+      if (err) throw err;
+      res.json(result);
+    });
+});
+
+app.get("/api/streamtickets", (req, res) => {
+  email = 'mehrudin.sabani@uniwien.at';
+  connection.query('SELECT * FROM  stream_tickets INNER JOIN stream_sales USING (ticket_code) WHERE email = ?', [email],
+    function(err, result) {
+      if (err) throw err;
+      res.json(result);
+    });
 });
 
 // set port, listen for requests

@@ -25,6 +25,7 @@ export class BackendService {
   getOnsiteTickets(){
     return of(ONSITE_TICKETS);
   }
+  
   getStreamingTickets(){
     return of (STREAMING_TICKETS);
   }

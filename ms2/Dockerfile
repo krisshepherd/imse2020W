@@ -1,4 +1,4 @@
-FROM node:15-alpine AS frontend
+FROM node:15-alpine
 WORKDIR /usr/src/app
 COPY angular/ ./angular/
 RUN cd angular && npm install @angular/cli && npm install && npm run build

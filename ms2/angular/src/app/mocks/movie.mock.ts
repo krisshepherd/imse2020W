@@ -1,8 +1,8 @@
 export const MOVIE = {
-    "title" : "Iron Man",
-    "release_date" : "2008",
-    "running_time" : "02:06:00",
+    "title" : "Iron Man 2",
+    "releaseDate" : "2010",
+    "runtime" : "02:04:00",
     "director" : "Jon Favreau",
-    "age_restriction" : "12A",
-    "DX" : "false"
+    "rating" : "12A",
+    "dx" : "No"
 }

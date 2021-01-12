@@ -1,4 +1,4 @@
-<input class= searchbar type="text" placeholder="Enter movie title">
+<input class=searchbar type="text" placeholder="Enter movie title" [(ngModel)]="searchParamTitle">
 <mat-accordion class="searchbar">
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
@@ -8,19 +8,19 @@
     </mat-expansion-panel-header>
     <mat-form-field appearance="fill">
       <mat-label>Release Year</mat-label>
-      <mat-select>
+      <mat-select (selectionChange)="selectYear($event.value)">
         <mat-option *ngFor="let year of yearsList" [value]="year">{{year}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Age Restriction</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let age of ages" [value]="age.value">
-          {{age.viewValue}}
+      <mat-select (selectionChange)="selectRating($event.value)">
+        <mat-option *ngFor="let rating of ratingList" [value]="rating">
+          {{rating}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-raised-button color="accent" type="submit">Search</button>
+    <button mat-raised-button color="accent" type="submit" (click)="setDetailedSearchParams()">Search</button>
   </mat-expansion-panel>
 </mat-accordion>
 
@@ -45,12 +45,16 @@
       4DX:
     </td>
   </thead>
-  <tr *ngFor="let movie of movies">
-    <td><li class="nav-item"><a [routerLink]="['moviedetails', movie.title, movie.release_date]">{{movie["title"]}}</a></li></td>
-    <td>{{movie["release_date"]}}</td>
-    <td>{{movie["running_time"]}}</td>
-    <td>{{movie["director"]}}</td>
-    <td>{{movie["age_restriction"]}}</td>
-    <td>{{movie["4DX"]}}</td>
+  <div *ngFor="let movie of movies">
+    <tr *ngIf="(movie.title.includes(searchParamTitle)) &&
+              (movie.releaseDate.includes(searchParamYear)) &&
+              (movie.rating.match(searchParamRating))">
+      <td><a [routerLink]="['moviedetails', movie.title, movie.releaseDate]">{{movie.title}}</a></td>
+      <td>{{movie.releaseDate}}</td>
+      <td>{{movie.runtime}}</td>
+      <td>{{movie.director}}</td>
+      <td>{{movie.rating}}</td>
+      <td>{{movie.dx}}</td>
   </tr>
+  </div>
 </table>

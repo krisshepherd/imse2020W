@@ -45,7 +45,6 @@ li a, .dropbtn {
 }
 
 .dropdown{
-  float: right;
   width: 200px;
 }
 
@@ -74,4 +73,8 @@ li.dropdown {
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+.myaccount{
+  float:right;
 }

@@ -5,7 +5,7 @@
       <td>ID</td>
       <td>Price</td>
       <td>Seat No.</td>
-      <td>Refund Data</td>
+      <td>Refund Date</td>
     </tr>
   </thead>
   <tr *ngFor="let ticket of onsiteTickets">
@@ -13,6 +13,7 @@
     <td>{{ticket.price}}</td>
     <td>{{ticket.row}}{{ticket.column}}</td>
     <td>{{ticket.refundDate}}</td>
+    <td><button>Refund</button></td>
   </tr>
 </table>
 <table>
@@ -22,7 +23,11 @@
     <td>Price</td>
     <td>Unique Code</td>
     <td>Link</td>
-    <td>Refund Date (Optional)</td>
   </tr>
 </thead>
+<tr *ngFor="let ticket of streamingTickets">
+  <td>{{ticket.price}}</td>
+  <td>{{ticket.code}}</td>
+  <td>{{ticket.link}}</td>
+</tr>
 </table>

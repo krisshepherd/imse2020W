@@ -24,6 +24,8 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { UserComponent } from './components/user/user.component';
 import { PurchasedticketsComponent } from './components/user/purchasedtickets/purchasedtickets.component';
+import { AdultmoviesreportComponent } from './components/adultmoviesreport/adultmoviesreport.component';
+import { DxreportComponent } from './components/dxreport/dxreport.component';
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import { PurchasedticketsComponent } from './components/user/purchasedtickets/pu
     SignupComponent,
     UserComponent,
     PurchasedticketsComponent,
+    AdultmoviesreportComponent,
+    DxreportComponent,
   ],
   imports: [
     BrowserModule,

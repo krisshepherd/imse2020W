@@ -1,0 +1,28 @@
+.userPanel{
+  display: block;
+  margin: 10px auto;
+  width: 700px;
+  padding: 20px;
+
+}
+.userInfo{
+  display: inline-block;
+  width: 350px;
+  background-color: rgb(158, 141, 170);
+}
+.userCash{
+  display: inline-block;
+  width: 300px;
+  background-color: rgba(118, 118, 128, 0.781);
+}
+.userCash, .userInfo{
+  height: 300px;
+  padding: 10px;
+}
+td,th{
+  padding: 10px;
+  padding-bottom: 50px;
+}
+th{
+  float:left;
+}

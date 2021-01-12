@@ -5,6 +5,7 @@ import { Movie } from "../dataclasses/movie";
 import { MOVIE } from '../mocks/movie.mock';
 import { MOVIES } from "../mocks/movies.mock";
 import { ONSITE_TICKETS } from '../mocks/onsite.mock';
+import { STREAMING_TICKETS } from '../mocks/streaming.mock';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,8 @@ export class BackendService {
 
   getOnsiteTickets(){
     return of(ONSITE_TICKETS);
+  }
+  getStreamingTickets(){
+    return of (STREAMING_TICKETS);
   }
 }

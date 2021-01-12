@@ -5,16 +5,23 @@
       <ul>
           <li class="nav-item"><a routerLink='/'>Home</a></li>
           <li class="nav-item"><a routerLink="movies">Movie Catalog</a></li>
-          <li class="nav-item"><a routerLink="statistics">Statistics</a></li>
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Ticket Sales</a>
+            <div class="dropdown-content">
+              <a routerLink="adultmovies">Movies Poularity(18+)</a>
+              <a href="#" routerLink="4dx">4DX Poularity</a>
+            </div>
+          </li>
+          <div class="myaccount">
           <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn" routerLink="user">My Account</a>
             <div class="dropdown-content">
               <a href="#" routerLink="user">Personal Data</a>
               <a href="#" routerLink="user/tickets">My Tickets</a>
-              <a href="#" routerLink="user/tickets">Refund Credits</a>
               <a href="#">Log Out</a>
             </div>
           </li>
+        </div>
           <li class="signup"><a routerLink="auth/login">Login</a></li>
           <li class="signup"><a routerLink="auth/signup">Sign Up</a></li>
 

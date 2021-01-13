@@ -17,10 +17,14 @@ export class AuthService {
     this.loggedIn.next(false);
   }
 
-  loginUser(email: String, password: String){
+  loginUser(email: string, password: string){
     this.backendService.getUserData(email, password).subscribe(data => {
-      if(data){
-        this.userData = data;
+      console.log(data);
+      if(data[0]){
+        this.userData.email = data[0].email;
+        this.userData.first_name = data[0].first_name;
+        this.userData.family_name = data[0].family_name;
+        this.userData.birthdate = data[0].birthdate;
         this.loggedIn.next(true);
       } else {
         this.loggedIn.next(false);

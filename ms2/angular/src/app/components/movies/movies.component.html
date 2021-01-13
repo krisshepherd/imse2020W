@@ -27,7 +27,7 @@
 
   <table class="moviesTable">
   <thead>
-    <td>
+    <td class="moviename">
       Name:
     </td>
     <td>
@@ -48,7 +48,7 @@
   </thead>
   <div *ngFor="let movie of filteredMovies">
     <tr *ngIf="movie.title.toLowerCase().includes(searchParamTitle.toLowerCase())">
-      <td><a [routerLink]="['moviedetails', movie.title, movie.release_date]">{{movie.title}}</a></td>
+      <td class="moviename"><a [routerLink]="['moviedetails', movie.title, movie.release_date]">{{movie.title}}</a></td>
       <td>{{movie.release_date}}</td>
       <td>{{movie.runtime}}</td>
       <td>{{movie.director}}</td>

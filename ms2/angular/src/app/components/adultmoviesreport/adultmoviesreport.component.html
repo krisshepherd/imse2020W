@@ -5,7 +5,7 @@
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <div *ngIf="onsitePercent > 0" class="chart" [ngStyle]="{'width.%': onsitePercent}">On-site tickets</div>
-    <div *ngIf="streamPercent > 0" class="chart" [ngStyle]="{'width.%': streamPercent}">Streaming tickets</div>
+    <div class="onsite" *ngIf="onsitePercent > 0"  [ngStyle]="{'width.%': onsitePercent}">On-site tickets</div>
+    <div class="streaming" *ngIf="streamPercent > 0"  [ngStyle]="{'width.%': streamPercent}">Streaming tickets</div>
   </mat-card-content>
 </mat-card>

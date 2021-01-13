@@ -5,7 +5,7 @@
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <div *ngIf="dxPercent > 0" class="chart" [ngStyle]="{'width.%': dxPercent}">4dx tickets</div>
-    <div *ngIf="nonDxPercent > 0" class="chart" [ngStyle]="{'width.%': nonDxPercent}">non-4dx tickets</div>
+    <div *ngIf="dxPercent > 0" class="dx" [ngStyle]="{'width.%': dxPercent}">4dx tickets</div>
+    <div *ngIf="nonDxPercent > 0" class="regular" [ngStyle]="{'width.%': nonDxPercent}">non-4dx tickets</div>
   </mat-card-content>
 </mat-card>

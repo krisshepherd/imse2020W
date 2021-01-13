@@ -28,4 +28,12 @@ export class BackendService {
   getStreamingTickets(){
     return this.http.get<Streaming[]>('http://localhost:3000/api/streamtickets');
   }
+
+  getDxSales(): Observable<any>{
+    return this.http.get('http://localhost:3000/api/onsitedxsales');
+  }
+
+  getAdultSales(): Observable<any>{
+    return this.http.get('http://localhost:3000/api/adultsales');
+  }
 }

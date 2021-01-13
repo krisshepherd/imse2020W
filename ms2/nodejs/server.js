@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const dbConfig = require("./db.dev.config");
 const mysql = require("mysql2");
-const { response } = require("express");
 
 const connection = mysql.createConnection({
   host: dbConfig.HOST,
@@ -99,7 +98,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
-
-function buildJSONResponse(value){
-
-}

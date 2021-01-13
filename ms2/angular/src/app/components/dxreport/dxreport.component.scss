@@ -1,16 +1,11 @@
-.moviesTable{
-  width: 600px;
-  display:block;
-  margin: 30px;
-  margin-left:  auto;
-  margin-right: auto;
-  padding: 10px;
-  background-color:rgb(82, 98, 116) ;
-  text-align: center;
+mat-card {
+  margin: 20px;
 }
-thead{
-  background-color:rgb(183, 206, 170);
-}
-td{
-  width: 200px;
+
+.chart {
+  background-color: red;
+  text-align: left;
+  margin-bottom: 15px;
+  padding: 15px;
+  border: 1px solid black;
 }

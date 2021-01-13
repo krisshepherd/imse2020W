@@ -1,30 +1,11 @@
-<table class="moviesTable">
-  <thead>
-    <td>
-      Name:
-    </td>
-    <td>
-      On-Site Sales:
-    </td>
-    <td>
-      Streaming Sales:
-    </td>
-    <td>
-      Rating:
-    </td>
-  </thead>
-  <tr>
-    <td>
-      Iron Man
-    </td>
-    <td>
-      140
-    </td>
-    <td>
-      75
-    </td>
-    <td>
-      18A
-    </td>
-  </tr>
-</table>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Ticket sales distribution among adult users
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div *ngIf="onsitePercent > 0" class="chart" [ngStyle]="{'width.%': onsitePercent}">On-site tickets</div>
+    <div *ngIf="streamPercent > 0" class="chart" [ngStyle]="{'width.%': streamPercent}">Streaming tickets</div>
+  </mat-card-content>
+</mat-card>

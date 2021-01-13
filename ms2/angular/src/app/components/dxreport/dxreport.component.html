@@ -1,24 +1,11 @@
-<table class="moviesTable">
-  <thead>
-    <td>
-      Name:
-    </td>
-    <td>
-      4DX Ticket Sales:
-    </td>
-    <td>
-      Regular Ticket Sales:
-    </td>
-  </thead>
-  <tr>
-    <td>
-      Iron Man
-    </td>
-    <td>
-      340
-    </td>
-    <td>
-      414
-    </td>
-  </tr>
-</table>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      On-site ticket sales
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div *ngIf="dxPercent > 0" class="chart" [ngStyle]="{'width.%': dxPercent}">4dx tickets</div>
+    <div *ngIf="nonDxPercent > 0" class="chart" [ngStyle]="{'width.%': nonDxPercent}">non-4dx tickets</div>
+  </mat-card-content>
+</mat-card>

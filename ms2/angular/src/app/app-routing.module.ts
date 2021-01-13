@@ -21,8 +21,8 @@ const routes: Routes = [
   { path: 'auth/signup', component: SignupComponent},
   { path: 'user', component: UserComponent},
   { path: 'user/tickets', component: PurchasedticketsComponent},
-  { path: 'adultmovies', component: AdultmoviesreportComponent},
-  { path: '4dx', component: DxreportComponent}
+  { path: 'adultsales', component: AdultmoviesreportComponent},
+  { path: 'dxsales', component: DxreportComponent}
 
 ];
 

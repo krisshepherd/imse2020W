@@ -4,9 +4,6 @@ import { Observable, of } from 'rxjs';
 import { Movie } from "../dataclasses/movie";
 import { Onsite } from "../dataclasses/onsite";
 import { Streaming } from '../dataclasses/streaming';
-import { User } from '../dataclasses/user';
-import { MOVIE } from '../mocks/movie.mock';
-import { USER } from "../mocks/user.mock";
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +18,9 @@ export class BackendService {
     return this.http.get<Movie[]>(this.baseUrl + '/movies');
   }
 
-  getMovie(title: String, releseDate: number): Observable<Movie> {
-    return of(MOVIE);
+  getMovie(title: string, releseDate: number): Observable<any> {
+    const headers = new HttpHeaders({ 'title': title, 'release': releseDate.toString() });
+    return this.http.get(this.baseUrl + '/movie', { headers });
   }
 
   getOnsiteTickets(): Observable<Onsite[]>{
@@ -43,6 +41,10 @@ export class BackendService {
 
   getUserData(email:string, password: string): Observable<any>{
     const headers = new HttpHeaders({ 'email': email, 'password': password });
-    return this.http.get(this.baseUrl + '/validateUser', { headers });
+    return this.http.get(this.baseUrl + '/validateuser', { headers });
+  }
+
+  addCredit(email: string, credit: number): Observable<any>{
+    return this.http.post(this.baseUrl + '/uploadcredit', { email: email, credit: credit});
   }
 }

@@ -19,9 +19,7 @@ export class AdultmoviesreportComponent implements OnInit {
   ngOnInit(): void {
     this.backendService.getAdultSales().subscribe( result => {
       this.onsiteSales = result["onsite"];
-      console.log(this.onsiteSales)
       this.streamSales = result["streaming"];
-      console.log(this.streamSales)
       this.total = this.onsiteSales + this.streamSales;
       this.onsitePercent = this.onsiteSales/this.total * 100;
       this.streamPercent = this.streamSales/this.total * 100;

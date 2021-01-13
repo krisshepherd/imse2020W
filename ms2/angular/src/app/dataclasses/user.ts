@@ -1,6 +1,8 @@
 export class User {
-    email: String = '';
-    first_name: String = '';
-    family_name: String = '';
-    birthdate: String = '';
+    email: string = '';
+    first_name: string = '';
+    family_name: string = '';
+    birthdate: string = '';
+    phone: string = '';
+    discount: number = 0;
 }

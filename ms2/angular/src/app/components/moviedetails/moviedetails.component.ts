@@ -20,7 +20,9 @@ export class MoviedetailsComponent implements OnInit {
   ngOnInit(): void {
     let title: any = this.route.snapshot.paramMap.get('title');
     let releaseDate: any = this.route.snapshot.paramMap.get('releasedate');
+    console.log(title)
+    console.log(releaseDate)
 
-    this.backendService.getMovie(title, releaseDate).subscribe( movie => this.movie = movie);    
+    this.backendService.getMovie(title, releaseDate).subscribe( movie => this.movie = movie[0]);    
   }
 }

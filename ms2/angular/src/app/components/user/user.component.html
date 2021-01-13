@@ -3,20 +3,16 @@
     <table>
       <tr>
         <th>Name</th>
-        <td>FirstName</td>
-        <td>LastName</td>
+        <td>{{userData.first_name}}</td>
+        <td>{{userData.family_name}}</td>
       </tr>
       <tr>
         <th>e-mail</th>
-        <td>user@mail.com</td>
+        <td>{{userData.email}}</td>
       </tr>
       <tr>
-        <th>
-          Phone Number
-        </th>
-        <td>
-          0671234567
-        </td>
+        <th>Phone Number</th>
+        <td>{{userData.phone}}</td>
       </tr>
     </table>
   </div>
@@ -24,21 +20,16 @@
     <table>
       <tr>
         <th>My Balance</th>
-        <td>800.00 eur</td>
+        <td>{{userData.discount}}</td>
       </tr>
       <tr>
         <td>
-          <input type="text" placeholder="add money to your balance">
+          <input type="text" name="money" placeholder="add money to your balance" [(ngModel)]="credit">
         </td>
         <td>
-          <button>Add Funds</button>
+          <button (click)="uploadCredit()">Add Funds</button>
         </td>
-      </tr>
-      <tr>
-        <th> My Refund Credits </th>
-        <td> 0.00 eur </td>
       </tr>
     </table>
-
   </div>
 </div>

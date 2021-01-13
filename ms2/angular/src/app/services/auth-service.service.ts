@@ -19,17 +19,22 @@ export class AuthService {
 
   loginUser(email: string, password: string){
     this.backendService.getUserData(email, password).subscribe(data => {
-      console.log(data);
       if(data[0]){
         this.userData.email = data[0].email;
         this.userData.first_name = data[0].first_name;
         this.userData.family_name = data[0].family_name;
         this.userData.birthdate = data[0].birthdate;
+        this.userData.phone = data[0].phone;
+        this.userData.discount = data[0].discount;
         this.loggedIn.next(true);
       } else {
         this.loggedIn.next(false);
       }
     });
+  }
+
+  getUserDetails(): User{
+    return this.userData;
   }
 
   logoutUser(){

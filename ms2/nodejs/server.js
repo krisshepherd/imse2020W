@@ -47,6 +47,16 @@ app.get("/api/movies", (req, res) => {
   });
 });
 
+app.get("/api/movie", (req, res) => {
+  let title = req.header('title');
+  let release = req.header('release');
+  connection.query("SELECT * FROM movies WHERE title = ? AND release_date = ?", [title, release],
+  function(err, result, fields) {
+    if (err) throw err;
+    res.json(result);
+  });
+});
+
 app.get("/api/onsitetickets", (req, res) => {
   email = 'mehrudin.sabani@uniwien.at';
   connection.query('SELECT * FROM  on_site_tickets INNER JOIN on_site_sales USING (ticket_code) WHERE email = ?', [email],
@@ -96,14 +106,28 @@ app.get("/api/onsitedxsales", (req,res) => {
 });
 
 app.get("/api/validateuser", (req,res) => {
-  console.log("HI")
   let email = req.header('email');
   let password = req.header('password');
   let pwdHash = crypto.createHmac('sha256', hashingSecret).update(password).digest('hex');
-  connection.query("SELECT email, first_name, family_name, birthdate FROM users WHERE email = ? AND password = ?", [email, pwdHash],
+  connection.query("SELECT email, first_name, family_name, birthdate, phone, discount FROM users WHERE email = ? AND password = ?", [email, pwdHash],
   function(err, result, fields) {
     if (err) throw err;
     res.json(result);
+  });
+});
+
+app.post("/api/uploadcredit", (req,res) => {
+  let email = req.body.email;
+  let credit = req.body.credit;
+  connection.query("SELECT discount FROM users WHERE email = ?", [email],
+  function(err, result, fields) {
+    if (err) throw err;
+    let currentCredit = Number(result[0].discount) + Number(credit);
+    connection.query("UPDATE users SET discount = ? WHERE email = ?", [currentCredit, email],
+    function(err, result, fields) {
+      if (err) throw err;
+      res.json({discount: currentCredit});
+    });
   });
 });
 

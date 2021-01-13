@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Movie } from "../dataclasses/movie";
@@ -41,7 +41,8 @@ export class BackendService {
     return this.http.get(this.baseUrl + '/adultsales');
   }
 
-  getUserData(email:String, password: String): Observable<User>{
-    return of<User>(USER);
+  getUserData(email:string, password: string): Observable<any>{
+    const headers = new HttpHeaders({ 'email': email, 'password': password });
+    return this.http.get(this.baseUrl + '/validateUser', { headers });
   }
 }

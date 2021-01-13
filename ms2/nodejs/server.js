@@ -1,9 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const crypto = require('crypto');
 const dbConfig = require("./db.dev.config");
 const mysql = require("mysql2");
 
+const hashingSecret = "cheese";
 const connection = mysql.createConnection({
   host: dbConfig.HOST,
   user: dbConfig.USER,
@@ -90,6 +92,18 @@ app.get("/api/onsitedxsales", (req,res) => {
       dxSales.dxsales = result[0].dxsales;
       res.json(dxSales);
     });
+  });
+});
+
+app.get("/api/validateuser", (req,res) => {
+  console.log("HI")
+  let email = req.header('email');
+  let password = req.header('password');
+  let pwdHash = crypto.createHmac('sha256', hashingSecret).update(password).digest('hex');
+  connection.query("SELECT email, first_name, family_name, birthdate FROM users WHERE email = ? AND password = ?", [email, pwdHash],
+  function(err, result, fields) {
+    if (err) throw err;
+    res.json(result);
   });
 });
 

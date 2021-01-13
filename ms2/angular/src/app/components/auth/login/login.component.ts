@@ -9,8 +9,8 @@ import { AuthService } from 'src/app/services/auth-service.service';
 })
 export class LoginComponent implements OnInit {
 
-  email: String = '';
-  password : String = '';
+  email: string = '';
+  password : string = '';
   showSpinner = false;
 
   constructor(private authService: AuthService, private router: Router) {

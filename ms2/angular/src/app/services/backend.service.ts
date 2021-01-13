@@ -5,8 +5,6 @@ import { Movie } from "../dataclasses/movie";
 import { Onsite } from "../dataclasses/onsite";
 import { Streaming } from '../dataclasses/streaming';
 import { MOVIE } from '../mocks/movie.mock';
-import { ONSITE_TICKETS } from '../mocks/onsite.mock';
-import { STREAMING_TICKETS } from '../mocks/streaming.mock';
 
 @Injectable({
   providedIn: 'root'

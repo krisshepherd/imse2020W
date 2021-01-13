@@ -12,8 +12,7 @@ import { PurchasedticketsComponent } from './components/user/purchasedtickets/pu
 import { UserComponent } from './components/user/user.component';
 
 const routes: Routes = [
-  //{ path: '', component: LoginComponent, pathMatch: 'full' }
-  { path: '', component: HomeComponent},
+  { path: '', component: HomeComponent, pathMatch: 'full'},
   { path: 'movies', component: MoviesComponent},
   { path: 'statistics', component: StatisticsComponent},
   { path: 'movies/moviedetails/:title/:releasedate', component: MoviedetailsComponent},

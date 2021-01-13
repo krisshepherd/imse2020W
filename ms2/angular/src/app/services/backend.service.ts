@@ -4,17 +4,21 @@ import { Observable, of } from 'rxjs';
 import { Movie } from "../dataclasses/movie";
 import { Onsite } from "../dataclasses/onsite";
 import { Streaming } from '../dataclasses/streaming';
+import { User } from '../dataclasses/user';
 import { MOVIE } from '../mocks/movie.mock';
+import { USER } from "../mocks/user.mock";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BackendService {
 
+  baseUrl = 'http://localhost:3000/api';
+
   constructor(private http: HttpClient) {}
 
   getMovies(): Observable<Movie[]> {
-    return this.http.get<Movie[]>('http://localhost:3000/api/movies');
+    return this.http.get<Movie[]>(this.baseUrl + '/movies');
   }
 
   getMovie(title: String, releseDate: number): Observable<Movie> {
@@ -22,18 +26,22 @@ export class BackendService {
   }
 
   getOnsiteTickets(): Observable<Onsite[]>{
-    return this.http.get<Onsite[]>('http://localhost:3000/api/onsitetickets');
+    return this.http.get<Onsite[]>(this.baseUrl + '/onsitetickets');
   }
   
   getStreamingTickets(){
-    return this.http.get<Streaming[]>('http://localhost:3000/api/streamtickets');
+    return this.http.get<Streaming[]>(this.baseUrl + '/streamtickets');
   }
 
   getDxSales(): Observable<any>{
-    return this.http.get('http://localhost:3000/api/onsitedxsales');
+    return this.http.get(this.baseUrl + '/onsitedxsales');
   }
 
   getAdultSales(): Observable<any>{
-    return this.http.get('http://localhost:3000/api/adultsales');
+    return this.http.get(this.baseUrl + '/adultsales');
+  }
+
+  getUserData(email:String, password: String): Observable<User>{
+    return of<User>(USER);
   }
 }

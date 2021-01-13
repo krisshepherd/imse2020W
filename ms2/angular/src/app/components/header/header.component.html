@@ -3,28 +3,29 @@
 </div>
 <nav class="navbar">
       <ul>
-          <li class="nav-item"><a routerLink='/'>Home</a></li>
-          <li class="nav-item"><a routerLink="movies">Movie Catalog</a></li>
-          <li class="dropdown">
-            <a class="dropbtn">Ticket Sales</a>
-            <div class="dropdown-content">
-              <a routerLink="adultsales">Ticket sales</a>
-              <a routerLink="dxsales">4DX Poularity</a>
-            </div>
-          </li>
-          <div class="myaccount">
+        <li class="nav-item"><a routerLink='/'>Home</a></li>
+        <li class="nav-item"><a routerLink="movies">Movie Catalog</a></li>
+        <li class="dropdown">
+          <a class="dropbtn">Ticket Sales</a>
+          <div class="dropdown-content">
+            <a routerLink="adultsales">Ticket sales</a>
+            <a routerLink="dxsales">4DX Poularity</a>
+          </div>
+        </li>
+        <div *ngIf="!userLoggedIn">
+          <li class="signup"><a routerLink="auth/login">Login</a></li>
+          <li class="signup"><a routerLink="auth/signup">Sign Up</a></li>
+        </div>
+        <div class="myaccount" *ngIf="userLoggedIn">
           <li class="dropdown">
             <a class="dropbtn" routerLink="user">My Account</a>
             <div class="dropdown-content">
               <a routerLink="user">Personal Data</a>
               <a routerLink="user/tickets">My Tickets</a>
-              <a routerLink="/">Log Out</a>
+              <a routerLink="/" (click)="logOut()">Log Out</a>
             </div>
           </li>
         </div>
-          <li class="signup"><a routerLink="auth/login">Login</a></li>
-          <li class="signup"><a routerLink="auth/signup">Sign Up</a></li>
-
       </ul>
 </nav>
 

@@ -109,8 +109,8 @@ INSERT INTO movies (title, release_date, runtime, director, rating, dx)
 VALUES
 	('Iron Man', 2008, '02:06:00', 'Jon Favreau', '12A', true),
     ('Iron Man 2', 2010, '02:04:00', 'Jon Favreau', '12A', true),
-    ('Thor', 2011, '01:55:00', 'Kenneth Branagh', '12A', true),
-    ('Iron Man 3', 2013, '02:10:00', 'Shane Black', '12A', false),
+    ('Thor', 2011, '01:55:00', 'Kenneth Branagh', '12A', false),
+    ('Iron Man 3', 2013, '02:10:00', 'Shane Black', '12A', true),
     ('Guardians of the Galaxy', 2014, '02:01:00', 'James Gunn', '12A', false),
     ('Ant-Man', 2015, '01:57:00', 'Payton Reed', '12A', false),
     ('Doctor Strange', 2016, '01:55:00', 'Scott Derrickson', '12A', false);

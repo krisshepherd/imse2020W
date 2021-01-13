@@ -1,8 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const dbConfig = require("./db.prod.config");
+const dbConfig = require("./db.dev.config");
 const mysql = require("mysql2");
+const { response } = require("express");
 
 const connection = mysql.createConnection({
   host: dbConfig.HOST,
@@ -63,8 +64,42 @@ app.get("/api/streamtickets", (req, res) => {
     });
 });
 
+app.get("/api/adultsales", (reg,res) => {
+  let adultSales = new Object();
+  connection.query("SELECT COUNT(ticket_code) onsite FROM on_site_sales WHERE email IN (SELECT email FROM users WHERE TIMESTAMPDIFF(year, birthdate, NOW()) > 18)",
+  function(err, result, fields) {
+    if(err) throw err;
+    adultSales.onsite = result[0].onsite;
+    connection.query("SELECT COUNT(ticket_code) streaming FROM stream_sales WHERE email IN (SELECT email FROM users WHERE TIMESTAMPDIFF(year, birthdate, NOW()) > 18)",
+    function(err, result, fields) {
+        if(err) throw err;
+        adultSales.streaming = result[0].streaming;
+        res.json(adultSales);
+    });
+  });
+});
+
+app.get("/api/onsitedxsales", (req,res) => {
+  let dxSales = new Object();
+  connection.query("SELECT COUNT(ticket_code) as total FROM on_site_tickets",
+  function(err, result, fields) {
+    if (err) throw err;
+    dxSales.total = result[0].total;
+    connection.query("SELECT COUNT(ticket_code) as dxsales FROM on_site_tickets WHERE screening_id IN (SELECT screening_id FROM screenings INNER JOIN movies USING (title, release_date) WHERE dx IS true)",
+    function(err, result, fields) {
+      if(err) throw err;
+      dxSales.dxsales = result[0].dxsales;
+      res.json(dxSales);
+    });
+  });
+});
+
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
+function buildJSONResponse(value){
+
+}

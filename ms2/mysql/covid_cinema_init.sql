@@ -150,10 +150,10 @@ INSERT INTO stream_tickets (ticket_code, price, screening_id)
 VALUES
 	('Z6XV8F', 10, 2),
     ('NAZ467', 10, 8);
-INSERT INTO users (email, password, first_name, family_name, birthdate)
+INSERT INTO users (email, password, first_name, family_name, birthdate, phone)
 VALUES
-	('kristof.juhasz@uniwien.at', 'fc66961a2ee7d37faa352ad9a4a94ab61a322f75dd5b3e9f9360205fab30760b', 'Kristof', 'Juhasz', '1994-06-22'),
-    ('mehrudin.sabani@uniwien.at', 'fc66961a2ee7d37faa352ad9a4a94ab61a322f75dd5b3e9f9360205fab30760b', 'Mehrudin', 'Sabani', '1997-05-05');
+	('kristof.juhasz@uniwien.at', 'fc66961a2ee7d37faa352ad9a4a94ab61a322f75dd5b3e9f9360205fab30760b', 'Kristof', 'Juhasz', '1994-06-22', '0677654321'),
+    ('mehrudin.sabani@uniwien.at', 'fc66961a2ee7d37faa352ad9a4a94ab61a322f75dd5b3e9f9360205fab30760b', 'Mehrudin', 'Sabani', '1997-05-05', '0671234567');
 INSERT INTO stream_sales (ticket_code, email)
 VALUES ('Z6XV8F', 'mehrudin.sabani@uniwien.at'), ('NAZ467', 'kristof.juhasz@uniwien.at');
 INSERT INTO on_site_sales (ticket_code, email)

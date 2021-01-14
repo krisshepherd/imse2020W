@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const crypto = require('crypto');
-const dbConfig = require("./db.prod.config");
+const dbConfig = require("./db.dev.config");
 const mysql = require("mysql2");
 
 const hashingSecret = "cheese";

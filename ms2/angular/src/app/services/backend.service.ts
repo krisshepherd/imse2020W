@@ -73,4 +73,8 @@ export class BackendService {
   buyStreamTicket(token: any, screening: Screening): Observable<null>{
     return this.http.post<null>(this.baseUrl + '/buyStreamTicket', { token: token, screening: screening});
   }
+
+  initDB(): Observable<null>{
+    return this.http.post<null>(this.baseUrl + '/initdb', {});
+  }
 }

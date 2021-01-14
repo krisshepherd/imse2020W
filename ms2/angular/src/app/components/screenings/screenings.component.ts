@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Screening } from 'src/app/dataclasses/screening';
@@ -44,13 +45,17 @@ export class ScreeningsComponent implements OnInit {
   buyOnsiteTicket(screening: Screening){
     let token = this.authService.getToken();
     this.backendService.buyOnsiteTicket(token, screening, this.selectedRow, this.selectedSeat)
-      .subscribe( () => this.router.navigate(['/user/tickets']));
+      .subscribe(
+        () => this.router.navigate(['/user/tickets']),
+        (error: HttpErrorResponse) => alert(error.error));
   }
 
   buyStreamTicket(screening: Screening){
     let token = this.authService.getToken();
     this.backendService.buyStreamTicket(token, screening)
-      .subscribe( () => this.router.navigate(['/user/tickets']));
+      .subscribe(
+        () => this.router.navigate(['/user/tickets']),
+        (error: HttpErrorResponse) => alert(error.error));
   }
 
 }

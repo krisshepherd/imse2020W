@@ -4,9 +4,14 @@ const cors = require("cors");
 const crypto = require('crypto');
 const dbConfig = require("./db.dev.config");
 const mysql = require("mysql2");
+const fs = require('fs');
 
+// global variables
 const hashingSecret = "cheese";
+const onsiteTicketPrice = 14;
+const streamTicketPrice = 10;
 var userToken = {};
+
 const connection = mysql.createConnection({
   host: dbConfig.HOST,
   user: dbConfig.USER,
@@ -195,22 +200,33 @@ app.post("/api/buyOnsiteTicket", (req,res) => {
     let screening = req.body.screening;
     let row = req.body.row;
     let seat = req.body.seat;
-        // TODO: DELETE THIS
-        console.log(req.body)
-        //
-    crypto.randomBytes(6, function(err, buffer) {
-      code = buffer.toString('hex');
-      connection.query("INSERT INTO on_site_tickets (ticket_code, refund_date, price, screening_id, seat_row, seat_col, cinema_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [code, screening.starttime.slice(0,10), 14, screening.screening_id, row, seat, screening.cinema_id],
-      function(err, result, fields) {
-        if (err) throw err;
-        connection.query("INSERT INTO on_site_sales (ticket_code, email) VALUES (?, ?)",
-        [code, email],
-        function(err, result, fields) {
-          if (err) throw err;
-          res.send();
+    connection.query("SELECT discount FROM users WHERE email = ?", [email],
+    function(err, result, fields) {
+      if (err) throw err;
+      if (result[0].discount < onsiteTicketPrice){
+        res.status(403).send("Insuffucient funds");
+      } else {
+        let currentCredit = result[0].discount;
+        crypto.randomBytes(6, function(err, buffer) {
+          code = buffer.toString('hex');
+          connection.query("INSERT INTO on_site_tickets (ticket_code, refund_date, price, screening_id, seat_row, seat_col, cinema_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
+          [code, screening.starttime.slice(0,10), onsiteTicketPrice, screening.screening_id, row, seat, screening.cinema_id],
+          function(err, result, fields) {
+            if (err) throw err;
+            connection.query("INSERT INTO on_site_sales (ticket_code, email) VALUES (?, ?)",
+            [code, email],
+            function(err, result, fields) {
+              if (err) throw err;
+              currentCredit = Number(currentCredit) - Number(onsiteTicketPrice);
+              connection.query("UPDATE users SET discount = ? WHERE email = ?", [currentCredit, email],
+              function(err, result, fields) {
+                if (err) throw err;
+                res.send();
+              });
+            });
+          });
         });
-      });
+      }
     });
   }
 });
@@ -219,21 +235,44 @@ app.post("/api/buyStreamTicket", (req,res) => {
   if(userToken.value == req.body.token){
     let email = userToken.email;
     let screening = req.body.screening;
-    crypto.randomBytes(6, function(err, buffer) {
-      code = buffer.toString('hex');
-      connection.query("INSERT INTO stream_tickets (ticket_code, price, screening_id) VALUES (?, ?, ?)",
-      [code, 10, screening.screening_id],
-      function(err, result, fields) {
-        if (err) throw err;
-        connection.query("INSERT INTO stream_sales (ticket_code, email) VALUES (?, ?)",
-        [code, email],
-        function(err, result, fields) {
-          if (err) throw err;
-          res.send();
+    connection.query("SELECT discount FROM users WHERE email = ?", [email],
+    function(err, result, fields) {
+      if (err) throw err;
+      if (result[0].discount < streamTicketPrice){
+        res.status(403).send("Insuffucient funds");
+      } else {
+        let currentCredit = result[0].discount;
+        crypto.randomBytes(6, function(err, buffer) {
+          code = buffer.toString('hex');
+          connection.query("INSERT INTO stream_tickets (ticket_code, price, screening_id) VALUES (?, ?, ?)",
+          [code, streamTicketPrice, screening.screening_id],
+          function(err, result, fields) {
+            if (err) throw err;
+            connection.query("INSERT INTO stream_sales (ticket_code, email) VALUES (?, ?)",
+            [code, email],
+            function(err, result, fields) {
+              if (err) throw err;
+              currentCredit = Number(currentCredit) - Number(streamTicketPrice);
+              connection.query("UPDATE users SET discount = ? WHERE email = ?", [currentCredit, email],
+              function(err, result, fields) {
+                if (err) throw err;
+                res.send();
+              });
+            });
+          });
         });
-      });
+      }
     });
   }
+});
+
+app.post("/api/initdb", (req,res) => {
+  const sql = fs.readFileSync('../mysql/covid_cinema_init.sql').toString();
+  console.log(sql)
+  connection.query(sql, function(err, result, fields) {
+    if (err) throw err;
+    res.send();
+  });
 });
 
 // set port, listen for requests

@@ -2,10 +2,14 @@
   <div class="movieHead">
     <img class="movieImage" src="../../assets/movie_stock.png" height="250px" width="220px">
     <p class="price">Price: 10$</p>
-    <button mat-raised-button class="movieButton" type="submit">Buy Streaming Ticket</button>
+    <a routerLink="/screenings/{{movie.title}}/{{movie.release_date}}">
+      <button mat-raised-button class="movieButton" type="submit">Buy Streaming Ticket</button>
+    </a>
 
     <p class="price">Price: 14$</p>
-    <button mat-raised-button class="movieButton" type="submit">Buy On-Site Ticket</button>
+    <a routerLink="/screenings/{{movie.title}}/{{movie.release_date}}">
+      <button mat-raised-button class="movieButton" type="submit">Buy On-Site Ticket</button>
+    </a>
   </div>
 
   <div class="movieDescription">

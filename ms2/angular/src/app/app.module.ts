@@ -26,6 +26,7 @@ import { UserComponent } from './components/user/user.component';
 import { PurchasedticketsComponent } from './components/user/purchasedtickets/purchasedtickets.component';
 import { AdultmoviesreportComponent } from './components/adultmoviesreport/adultmoviesreport.component';
 import { DxreportComponent } from './components/dxreport/dxreport.component';
+import { ScreeningsComponent } from './components/screenings/screenings.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { DxreportComponent } from './components/dxreport/dxreport.component';
     PurchasedticketsComponent,
     AdultmoviesreportComponent,
     DxreportComponent,
+    ScreeningsComponent
   ],
   imports: [
     BrowserModule,

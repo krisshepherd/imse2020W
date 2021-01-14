@@ -12,8 +12,8 @@
         <li class="dropdown">
           <a class="dropbtn">Ticket Sales</a>
           <div class="dropdown-content">
-            <a routerLink="adultsales">Ticket sales</a>
-            <a routerLink="dxsales">4DX Poularity</a>
+            <a routerLink="reports/adultsales">Ticket sales</a>
+            <a routerLink="reports/dxsales">4DX Poularity</a>
           </div>
         </li>
         <div *ngIf="!userLoggedIn">
@@ -22,9 +22,9 @@
         </div>
         <div class="myaccount" *ngIf="userLoggedIn">
           <li class="dropdown">
-            <a class="dropbtn" routerLink="user">My Account</a>
+            <a class="dropbtn" routerLink="user/profile">My Account</a>
             <div class="dropdown-content">
-              <a routerLink="user">Personal Data</a>
+              <a routerLink="user/profile">Personal Data</a>
               <a routerLink="user/tickets">My Tickets</a>
               <a routerLink="/" (click)="logOut()">Log Out</a>
             </div>

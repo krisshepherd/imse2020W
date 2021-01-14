@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Movie } from "../dataclasses/movie";
 import { Onsite } from "../dataclasses/onsite";
+import { Screening } from '../dataclasses/screening';
 import { Streaming } from '../dataclasses/streaming';
 import { User } from "../dataclasses/user";
 
@@ -42,6 +43,11 @@ export class BackendService {
     return this.http.get(this.baseUrl + '/adultsales');
   }
 
+  getScreenings(title: string, releseDate: number): Observable<Screening[]>{
+    const headers = new HttpHeaders({ 'title': title, 'release': releseDate.toString() });
+    return this.http.get<Screening[]>(this.baseUrl + '/screenings');
+  }
+
   validateUser(email:string, password: string): Observable<null>{
     const headers = new HttpHeaders({ 'email': email, 'password': password });
     return this.http.get<null>(this.baseUrl + '/validateuser', { headers });
@@ -58,5 +64,13 @@ export class BackendService {
 
   refundTicket(ticket: Onsite): Observable<null>{
     return this.http.post<null>(this.baseUrl + '/refund', { code: ticket.ticket_code });
+  }
+
+  buyOnsiteTicket(token: any, screening: Screening, row: number, seat: string): Observable<null>{
+    return this.http.post<null>(this.baseUrl + '/buyOnsiteTicket', { token: token, screening: screening});
+  }
+
+  buyStreamTicket(token: any, screening: Screening): Observable<null>{
+    return this.http.post<null>(this.baseUrl + '/buyStreamTicket', { token: token, screening: screening});
   }
 }

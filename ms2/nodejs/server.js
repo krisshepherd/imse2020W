@@ -110,6 +110,16 @@ app.get("/api/onsitedxsales", (req,res) => {
   });
 });
 
+app.get("/api/screenings", (req,res) => {
+  let title = req.header('title');
+  let release = req.header('release');
+  connection.query("SELECT * FROM screenings WHERE title = ? AND release_date = ?", [title, release],
+  function(err, result, fields) {
+    if (err) throw err;
+    res.json(result);
+  });
+});
+
 app.get("/api/validateuser", (req,res) => {
   userToken = {};
   let email = req.header('email');
@@ -177,6 +187,52 @@ app.post("/api/refund", (req,res) => {
       });
     });
   });
+});
+
+app.post("/api/buyOnsiteTicket", (req,res) => {
+  if(userToken.value == req.body.token){
+    let email = userToken.email;
+    let screening = req.body.screening;
+    let row = req.body.row;
+    let seat = req.body.seat;
+    // TODO: DELETE THIS
+    console.log(screening);
+    crypto.randomBytes(6, function(err, buffer) {
+      code = buffer.toString('hex');
+      connection.query("INSERT INTO on_site_tickets (ticket_code, refund_date, price, screening_id, seat_row, seat_col, cinema_id) VALUES (?, ?, ?, ?, ?, ?, ?),",
+      [code, screening.starttime, 14, screening.screening_id, row, seat, screening.cinema_id],
+      function(err, result, fields) {
+        if (err) throw err;
+        connection.query("INSERT INTO on_site_sales (ticket_code, email) VALUES (?, ?)",
+        [code, email],
+        function(err, result, fields) {
+          if (err) throw err;
+          res.send();
+        });
+      });
+    });
+  }
+});
+
+app.post("/api/buyStreamTicket", (req,res) => {
+  if(userToken.value == req.body.token){
+    let email = userToken.email;
+    let screening = req.body.screening;
+    crypto.randomBytes(6, function(err, buffer) {
+      code = buffer.toString('hex');
+      connection.query("INSERT INTO stream_tickets (ticket_code, price, screening_id) VALUES (?, ?, ?),",
+      [code, 10, screening.screening_id],
+      function(err, result, fields) {
+        if (err) throw err;
+        connection.query("INSERT INTO stream_sales (ticket_code, email) VALUES (?, ?)",
+        [code, email],
+        function(err, result, fields) {
+          if (err) throw err;
+          res.send();
+        });
+      });
+    });
+  }
 });
 
 // set port, listen for requests

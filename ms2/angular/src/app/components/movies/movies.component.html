@@ -25,35 +25,23 @@
   </mat-expansion-panel>
 </mat-accordion>
 
-  <table class="moviesTable">
+<table class="moviesTable">
   <thead>
-    <td class="moviename">
-      Name:
-    </td>
-    <td>
-      Release Date:
-    </td>
-    <td>
-      Movie Runtime:
-    </td>
-    <td>
-      Director:
-    </td>
-    <td>
-      Rating:
-    </td>
-    <td>
-      4DX:
-    </td>
+    <td class="moviename">Name:</td>
+    <td>Release Date:</td>
+    <td>Movie Runtime:</td>
+    <td>Director:</td>
+    <td>Rating:</td>
+    <td>4DX:</td>
   </thead>
   <div *ngFor="let movie of filteredMovies">
     <tr *ngIf="movie.title.toLowerCase().includes(searchParamTitle.toLowerCase())">
-      <td class="moviename"><a [routerLink]="['moviedetails', movie.title, movie.release_date]">{{movie.title}}</a></td>
+      <td class="moviename"><a [routerLink]="['/moviedetails', movie.title, movie.release_date]">{{movie.title}}</a></td>
       <td>{{movie.release_date}}</td>
       <td>{{movie.runtime}}</td>
       <td>{{movie.director}}</td>
       <td>{{movie.rating}}</td>
       <td>{{movie.dx}}</td>
-  </tr>
+    </tr>
   </div>
 </table>

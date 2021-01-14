@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { User } from '../dataclasses/user';
+import { Subject } from 'rxjs';
 import { BackendService } from './backend.service';
 
 @Injectable({

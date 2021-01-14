@@ -18,7 +18,7 @@
         </li>
         <div *ngIf="!userLoggedIn">
           <li class="signup"><a routerLink="auth/login">Login</a></li>
-          <li class="signup"><a routerLink="auth/signup">Sign Up</a></li>
+          <li class="signup" *ngIf="false"><a routerLink="auth/signup">Sign Up</a></li>
         </div>
         <div class="myaccount" *ngIf="userLoggedIn">
           <li class="dropdown">

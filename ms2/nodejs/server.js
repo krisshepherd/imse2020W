@@ -4,7 +4,6 @@ const cors = require("cors");
 const crypto = require('crypto');
 const dbConfig = require("./db.dev.config");
 const mysql = require("mysql2");
-const fs = require('fs');
 
 // global variables
 const hashingSecret = "cheese";
@@ -264,15 +263,6 @@ app.post("/api/buyStreamTicket", (req,res) => {
       }
     });
   }
-});
-
-app.post("/api/initdb", (req,res) => {
-  const sql = fs.readFileSync('../mysql/covid_cinema_init.sql').toString();
-  console.log(sql)
-  connection.query(sql, function(err, result, fields) {
-    if (err) throw err;
-    res.send();
-  });
 });
 
 // set port, listen for requests

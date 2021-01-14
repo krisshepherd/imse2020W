@@ -19,16 +19,23 @@ thead{
     border-radius: 5px;
 }
 td{
-    width: 130px;
+    width: 150px;
     font-size:16px;
     text-align: center;
     padding: 0;
     margin: 0;
 }
 .moviename{
-    width: 240px;
     text-align: justify;
 }
 tr{
     height: 40px;
+}
+.custom-table-row {
+    display: flex;
+    align-items: center;
+    padding: 10px
+}
+button{
+    margin: 0px 10px;
 }

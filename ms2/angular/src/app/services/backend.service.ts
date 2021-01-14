@@ -45,7 +45,7 @@ export class BackendService {
 
   getScreenings(title: string, releseDate: number): Observable<Screening[]>{
     const headers = new HttpHeaders({ 'title': title, 'release': releseDate.toString() });
-    return this.http.get<Screening[]>(this.baseUrl + '/screenings');
+    return this.http.get<Screening[]>(this.baseUrl + '/screenings', { headers });
   }
 
   validateUser(email:string, password: string): Observable<null>{
@@ -67,7 +67,7 @@ export class BackendService {
   }
 
   buyOnsiteTicket(token: any, screening: Screening, row: number, seat: string): Observable<null>{
-    return this.http.post<null>(this.baseUrl + '/buyOnsiteTicket', { token: token, screening: screening});
+    return this.http.post<null>(this.baseUrl + '/buyOnsiteTicket', { token: token, screening: screening, row: row, seat: seat});
   }
 
   buyStreamTicket(token: any, screening: Screening): Observable<null>{

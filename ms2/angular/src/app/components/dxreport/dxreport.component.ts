@@ -21,8 +21,8 @@ export class DxreportComponent implements OnInit {
       this.total = result["total"];
       this.dxSales = result["dxsales"];
       this.nonDxSales = result["total"]-result["dxsales"];
-      this.dxPercent = this.dxSales/this.total * 100;
-      this.nonDxPercent = this.nonDxSales/this.total * 100;
+      this.dxPercent = this.dxSales/this.total * 96;
+      this.nonDxPercent = this.nonDxSales/this.total * 96;
     });
   }
 

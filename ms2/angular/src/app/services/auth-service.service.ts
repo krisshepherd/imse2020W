@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { BackendService } from './backend.service';
 
 @Injectable({
@@ -7,13 +7,12 @@ import { BackendService } from './backend.service';
 })
 export class AuthService {
 
-  private loggedIn = new Subject<boolean>();
+  private loggedIn = new BehaviorSubject<boolean>(false);
   private token: any;
 
   loggedIn$ = this.loggedIn.asObservable();
 
   constructor(private backendService: BackendService) {
-    this.loggedIn.next(false);
     this.token = null;
   }
 

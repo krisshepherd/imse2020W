@@ -13,19 +13,14 @@ export class LoginComponent implements OnInit {
   password : string = '';
   showSpinner = false;
 
-  constructor(private authService: AuthService, private router: Router) {
-    this.authService.loggedIn$.subscribe( value => {
-      this.router.navigate(['']);
-      this.showSpinner = false;
-    });
-  }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   loginUser(){
     this.authService.loginUser(this.email, this.password);
-    this.showSpinner = true;
+    this.router.navigate(['']);
   }
 
 }

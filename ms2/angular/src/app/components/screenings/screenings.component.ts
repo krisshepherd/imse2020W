@@ -11,6 +11,9 @@ import { BackendService } from 'src/app/services/backend.service';
 })
 export class ScreeningsComponent implements OnInit {
 
+  seats = ['A','B','C','D','E','F'];
+  rows = [1,2,3,4,5,6];
+
   screenings: Screening[] = [];
   userLoggedIn: boolean = false;
   selectedRow: number = 0;
@@ -19,13 +22,10 @@ export class ScreeningsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private backendService:BackendService,
               private authService: AuthService,
-              private router:Router) {
-    this.authService.loggedIn$.subscribe( value => {
-      this.userLoggedIn = value;
-    });
-  }
+              private router:Router) { }
 
   ngOnInit(): void {
+    this.authService.loggedIn$.subscribe( value => this.userLoggedIn = value);
     let title: any = this.route.snapshot.paramMap.get('title');
     let releaseDate: any = this.route.snapshot.paramMap.get('releasedate');
     this.backendService.getScreenings(title, releaseDate).subscribe( screenings => {
@@ -44,13 +44,13 @@ export class ScreeningsComponent implements OnInit {
   buyOnsiteTicket(screening: Screening){
     let token = this.authService.getToken();
     this.backendService.buyOnsiteTicket(token, screening, this.selectedRow, this.selectedSeat)
-      .subscribe( () => this.router.navigate(['/user/profile']));
+      .subscribe( () => this.router.navigate(['/user/tickets']));
   }
 
   buyStreamTicket(screening: Screening){
     let token = this.authService.getToken();
     this.backendService.buyStreamTicket(token, screening)
-      .subscribe( () => this.router.navigate(['/user/profile']));
+      .subscribe( () => this.router.navigate(['/user/tickets']));
   }
 
 }

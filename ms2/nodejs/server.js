@@ -195,12 +195,13 @@ app.post("/api/buyOnsiteTicket", (req,res) => {
     let screening = req.body.screening;
     let row = req.body.row;
     let seat = req.body.seat;
-    // TODO: DELETE THIS
-    console.log(screening);
+        // TODO: DELETE THIS
+        console.log(req.body)
+        //
     crypto.randomBytes(6, function(err, buffer) {
       code = buffer.toString('hex');
-      connection.query("INSERT INTO on_site_tickets (ticket_code, refund_date, price, screening_id, seat_row, seat_col, cinema_id) VALUES (?, ?, ?, ?, ?, ?, ?),",
-      [code, screening.starttime, 14, screening.screening_id, row, seat, screening.cinema_id],
+      connection.query("INSERT INTO on_site_tickets (ticket_code, refund_date, price, screening_id, seat_row, seat_col, cinema_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      [code, screening.starttime.slice(0,10), 14, screening.screening_id, row, seat, screening.cinema_id],
       function(err, result, fields) {
         if (err) throw err;
         connection.query("INSERT INTO on_site_sales (ticket_code, email) VALUES (?, ?)",
@@ -220,7 +221,7 @@ app.post("/api/buyStreamTicket", (req,res) => {
     let screening = req.body.screening;
     crypto.randomBytes(6, function(err, buffer) {
       code = buffer.toString('hex');
-      connection.query("INSERT INTO stream_tickets (ticket_code, price, screening_id) VALUES (?, ?, ?),",
+      connection.query("INSERT INTO stream_tickets (ticket_code, price, screening_id) VALUES (?, ?, ?)",
       [code, 10, screening.screening_id],
       function(err, result, fields) {
         if (err) throw err;

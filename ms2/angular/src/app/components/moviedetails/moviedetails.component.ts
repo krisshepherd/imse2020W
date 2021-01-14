@@ -23,6 +23,6 @@ export class MoviedetailsComponent implements OnInit {
     console.log(title)
     console.log(releaseDate)
 
-    this.backendService.getMovie(title, releaseDate).subscribe( movie => this.movie = movie[0]);    
+    this.backendService.getMovie(title, releaseDate).subscribe( movie => this.movie = movie);    
   }
 }

@@ -2,10 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const crypto = require('crypto');
-const dbConfig = require("./db.dev.config");
+const dbConfig = require("./db.prod.config");
 const mysql = require("mysql2");
 
 const hashingSecret = "cheese";
+var userToken = {};
 const connection = mysql.createConnection({
   host: dbConfig.HOST,
   user: dbConfig.USER,
@@ -53,26 +54,30 @@ app.get("/api/movie", (req, res) => {
   connection.query("SELECT * FROM movies WHERE title = ? AND release_date = ?", [title, release],
   function(err, result, fields) {
     if (err) throw err;
-    res.json(result);
+    res.json(result[0]);
   });
 });
 
 app.get("/api/onsitetickets", (req, res) => {
-  email = 'mehrudin.sabani@uniwien.at';
-  connection.query('SELECT * FROM  on_site_tickets INNER JOIN on_site_sales USING (ticket_code) WHERE email = ?', [email],
+  if(userToken.value == req.header('token')){
+    let email = userToken.email;
+    connection.query('SELECT * FROM  on_site_tickets INNER JOIN on_site_sales USING (ticket_code) WHERE email = ?', [email],
     function(err, result) {
       if (err) throw err;
       res.json(result);
     });
+  }
 });
 
 app.get("/api/streamtickets", (req, res) => {
-  email = 'mehrudin.sabani@uniwien.at';
-  connection.query('SELECT * FROM  stream_tickets INNER JOIN stream_sales USING (ticket_code) WHERE email = ?', [email],
+  if(userToken.value == req.header('token')){
+    let email = userToken.email;
+    connection.query('SELECT * FROM  stream_tickets INNER JOIN stream_sales USING (ticket_code) WHERE email = ?', [email],
     function(err, result) {
       if (err) throw err;
       res.json(result);
     });
+  }  
 });
 
 app.get("/api/adultsales", (reg,res) => {
@@ -106,17 +111,36 @@ app.get("/api/onsitedxsales", (req,res) => {
 });
 
 app.get("/api/validateuser", (req,res) => {
+  userToken = {};
   let email = req.header('email');
   let password = req.header('password');
   let pwdHash = crypto.createHmac('sha256', hashingSecret).update(password).digest('hex');
-  connection.query("SELECT email, first_name, family_name, birthdate, phone, discount FROM users WHERE email = ? AND password = ?", [email, pwdHash],
+  connection.query("SELECT password FROM users WHERE email = ?", [email],
   function(err, result, fields) {
     if (err) throw err;
-    res.json(result);
+    if (result[0].password == pwdHash){
+      console.log("User authentication successful");
+      userToken.email = email;
+      crypto.randomBytes(48, function(err, buffer) {
+        userToken.value = buffer.toString('hex');
+        res.json(userToken.value);
+      });
+    } else console.log('User authentication failed');
   });
 });
 
-app.post("/api/uploadcredit", (req,res) => {
+app.get("/api/user", (req,res) => {
+  if(userToken.value == req.header('token')){
+    let email = userToken.email;
+    connection.query("SELECT email, first_name, family_name, birthdate, phone, discount FROM users WHERE email = ?", [email],
+    function(err, result, fields) {
+      if (err) throw err;
+      res.json(result[0]);
+    });
+  }
+});
+
+app.put("/api/uploadcredit", (req,res) => {
   let email = req.body.email;
   let credit = req.body.credit;
   connection.query("SELECT discount FROM users WHERE email = ?", [email],
@@ -126,7 +150,31 @@ app.post("/api/uploadcredit", (req,res) => {
     connection.query("UPDATE users SET discount = ? WHERE email = ?", [currentCredit, email],
     function(err, result, fields) {
       if (err) throw err;
-      res.json({discount: currentCredit});
+      res.send();
+    });
+  });
+});
+
+app.post("/api/refund", (req,res) => {
+  let code = req.body.code;
+  connection.query("SELECT email, price FROM on_site_sales INNER JOIN on_site_tickets USING (ticket_code) WHERE ticket_code = ?", [code],
+  function(err, result, fields) {
+    if (err) throw err;
+    let email = result[0].email;
+    let price = result[0].price;
+    connection.query("DELETE FROM on_site_tickets WHERE ticket_code = ?", [code],
+    function(err, result, fields) {
+      if (err) throw err;
+      connection.query("SELECT discount FROM users WHERE email = ?", [email],
+      function(err, result, fields) {
+        if (err) throw err;
+        let currentCredit = Number(result[0].discount) + Number(price);
+        connection.query("UPDATE users SET discount = ? WHERE email = ?", [currentCredit, email],
+        function(err, result, fields) {
+          if (err) throw err;
+          res.send();
+        });
+      });
     });
   });
 });

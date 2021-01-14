@@ -14,7 +14,7 @@
       <td>{{ticket.price}}</td>
       <td>{{ticket.seat_row}}{{ticket.seat_col}}</td>
       <td>{{ticket.refund_date}}</td>
-      <td><button mat-raised-button>Refund</button></td>
+      <td><button mat-raised-button (click)="refundTicket(ticket)">Refund</button></td>
     </tr>
   </table>
 </div>

@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { Movie } from "../dataclasses/movie";
 import { Onsite } from "../dataclasses/onsite";
 import { Streaming } from '../dataclasses/streaming';
+import { User } from "../dataclasses/user";
 
 @Injectable({
   providedIn: 'root'
@@ -18,17 +19,19 @@ export class BackendService {
     return this.http.get<Movie[]>(this.baseUrl + '/movies');
   }
 
-  getMovie(title: string, releseDate: number): Observable<any> {
+  getMovie(title: string, releseDate: number): Observable<Movie> {
     const headers = new HttpHeaders({ 'title': title, 'release': releseDate.toString() });
-    return this.http.get(this.baseUrl + '/movie', { headers });
+    return this.http.get<Movie>(this.baseUrl + '/movie', { headers });
   }
 
-  getOnsiteTickets(): Observable<Onsite[]>{
-    return this.http.get<Onsite[]>(this.baseUrl + '/onsitetickets');
+  getOnsiteTickets(token: any): Observable<Onsite[]>{
+    const headers = new HttpHeaders({ 'token': token });
+    return this.http.get<Onsite[]>(this.baseUrl + '/onsitetickets', { headers });
   }
   
-  getStreamingTickets(){
-    return this.http.get<Streaming[]>(this.baseUrl + '/streamtickets');
+  getStreamingTickets(token: any): Observable<Streaming[]>{
+    const headers = new HttpHeaders({ 'token': token });
+    return this.http.get<Streaming[]>(this.baseUrl + '/streamtickets', { headers });
   }
 
   getDxSales(): Observable<any>{
@@ -39,12 +42,21 @@ export class BackendService {
     return this.http.get(this.baseUrl + '/adultsales');
   }
 
-  getUserData(email:string, password: string): Observable<any>{
+  validateUser(email:string, password: string): Observable<null>{
     const headers = new HttpHeaders({ 'email': email, 'password': password });
-    return this.http.get(this.baseUrl + '/validateuser', { headers });
+    return this.http.get<null>(this.baseUrl + '/validateuser', { headers });
   }
 
-  addCredit(email: string, credit: number): Observable<any>{
-    return this.http.post(this.baseUrl + '/uploadcredit', { email: email, credit: credit});
+  getUserData(token: any): Observable<User>{
+    const headers = new HttpHeaders({ 'token': token});
+    return this.http.get<User>(this.baseUrl + '/user', { headers} );
+  }
+
+  addCredit(email: string, credit: number): Observable<null>{
+    return this.http.put<null>(this.baseUrl + '/uploadcredit', { email: email, credit: credit});
+  }
+
+  refundTicket(ticket: Onsite): Observable<null>{
+    return this.http.post<null>(this.baseUrl + '/refund', { code: ticket.ticket_code });
   }
 }

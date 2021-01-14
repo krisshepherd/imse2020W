@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { User } from '../dataclasses/user';
 import { BackendService } from './backend.service';
 
@@ -8,24 +8,20 @@ import { BackendService } from './backend.service';
 })
 export class AuthService {
 
-  userData: User = new User();
   private loggedIn = new Subject<boolean>();
+  private token: any;
 
   loggedIn$ = this.loggedIn.asObservable();
 
   constructor(private backendService: BackendService) {
     this.loggedIn.next(false);
+    this.token = null;
   }
 
-  loginUser(email: string, password: string){
-    this.backendService.getUserData(email, password).subscribe(data => {
-      if(data[0]){
-        this.userData.email = data[0].email;
-        this.userData.first_name = data[0].first_name;
-        this.userData.family_name = data[0].family_name;
-        this.userData.birthdate = data[0].birthdate;
-        this.userData.phone = data[0].phone;
-        this.userData.discount = data[0].discount;
+  loginUser(email: string, password: string): void{
+    this.backendService.validateUser(email, password).subscribe(data => {
+      if(data){
+        this.token = data;
         this.loggedIn.next(true);
       } else {
         this.loggedIn.next(false);
@@ -33,12 +29,12 @@ export class AuthService {
     });
   }
 
-  getUserDetails(): User{
-    return this.userData;
+  getToken(){
+    return this.token;
   }
 
-  logoutUser(){
+  logoutUser(): void{
     this.loggedIn.next(false);
-    this.userData = new User();
+    this.token = null;
   }
 }

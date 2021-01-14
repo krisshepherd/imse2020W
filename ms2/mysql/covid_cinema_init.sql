@@ -13,7 +13,7 @@ CREATE TABLE seats (
     seat_col CHAR(1),
     cinema_id INT NOT NULL,
     weightlimit INT NOT NULL,
-    4DX BOOLEAN NOT NULL DEFAULT FALSE,
+    dx BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY (seat_row, seat_col, cinema_id),
 	FOREIGN KEY (cinema_id)
 		REFERENCES cinema (cinema_id)
@@ -25,7 +25,7 @@ CREATE TABLE movies (
     runtime TIME NOT NULL,
     director VARCHAR(255) NOT NULL,
     rating VARCHAR(255) NOT NULL,
-    4DX BOOLEAN NOT NULL DEFAULT FALSE,
+    dx BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY (title, release_date)
 );
 CREATE TABLE screenings (
@@ -66,6 +66,7 @@ CREATE TABLE stream_tickets (
 );
 CREATE TABLE users (
 	email VARCHAR(255) PRIMARY KEY,
+    password VARCHAR(255) NOT NULL,
     discount INT NOT NULL DEFAULT 0,
     phone VARCHAR(255),
     first_name VARCHAR(255) NOT NULL,
@@ -104,15 +105,15 @@ VALUES
     (4, 'A', 1, 200), (4, 'B', 1, 200), (4, 'C', 1, 200), (4, 'D', 1, 200), (4, 'E', 1, 200), (4, 'F', 1, 200),
     (5, 'A', 1, 200), (5, 'B', 1, 200), (5, 'C', 1, 200), (5, 'D', 1, 200), (5, 'E', 1, 200), (5, 'F', 1, 200),
     (6, 'A', 1, 200), (6, 'B', 1, 200), (6, 'C', 1, 200), (6, 'D', 1, 200), (6, 'E', 1, 200), (6, 'F', 1, 200);
-INSERT INTO movies (title, release_date, runtime, director, rating)
+INSERT INTO movies (title, release_date, runtime, director, rating, dx)
 VALUES
-	('Iron Man', 2008, '02:06:00', 'Jon Favreau', '12A'),
-    ('Iron Man 2', 2010, '02:04:00', 'Jon Favreau', '12A'),
-    ('Thor', 2011, '01:55:00', 'Kenneth Branagh', '12A'),
-    ('Iron Man 3', 2013, '02:10:00', 'Shane Black', '12A'),
-    ('Guardians of the Galaxy', 2014, '02:01:00', 'James Gunn', '12A'),
-    ('Ant-Man', 2015, '01:57:00', 'Payton Reed', '12A'),
-    ('Doctor Strange', 2016, '01:55:00', 'Scott Derrickson', '12A');
+	('Iron Man', 2008, '02:06:00', 'Jon Favreau', '12A', true),
+    ('Iron Man 2', 2010, '02:04:00', 'Jon Favreau', '12A', true),
+    ('Thor', 2011, '01:55:00', 'Kenneth Branagh', '12A', false),
+    ('Iron Man 3', 2013, '02:10:00', 'Shane Black', '12A', true),
+    ('Guardians of the Galaxy', 2014, '02:01:00', 'James Gunn', '12A', false),
+    ('Ant-Man', 2015, '01:57:00', 'Payton Reed', '12A', false),
+    ('Doctor Strange', 2016, '01:55:00', 'Scott Derrickson', '12A', false);
 INSERT INTO screenings (cinema_id, title, release_date, starttime)
 VALUES
 	(1, 'Iron Man', 2008, '2021-01-23 17:00:00'),
@@ -144,16 +145,16 @@ VALUES
 INSERT INTO on_site_tickets (ticket_code, refund_date, price, screening_id, seat_row, seat_col, cinema_id)
 VALUES
 	('WE6Z25', '2021-01-22', 10, 1, 3, 'C', 1),
-    ('ZV2XDS', '2021-01-22', 10, 1, 3, 'D', 1);
+    ('ZV2XDS', '2021-01-22', 10, 7, 3, 'D', 1);
 INSERT INTO stream_tickets (ticket_code, price, screening_id)
 VALUES
-	('Z6XV8F', 10, 1),
-    ('NAZ467', 10, 1);
-INSERT INTO users (email, first_name, family_name)
+	('Z6XV8F', 10, 2),
+    ('NAZ467', 10, 8);
+INSERT INTO users (email, password, first_name, family_name, birthdate, phone)
 VALUES
-	('kristof.juhasz@uniwien.at', 'Kristof', 'Juhasz'),
-    ('mehrudin.sabani@uniwien.at', 'Mehrudin', 'Sabani');
+	('kristof.juhasz@uniwien.at', 'fc66961a2ee7d37faa352ad9a4a94ab61a322f75dd5b3e9f9360205fab30760b', 'Kristof', 'Juhasz', '1994-06-22', '0677654321'),
+    ('mehrudin.sabani@uniwien.at', 'fc66961a2ee7d37faa352ad9a4a94ab61a322f75dd5b3e9f9360205fab30760b', 'Mehrudin', 'Sabani', '1997-05-05', '0671234567');
 INSERT INTO stream_sales (ticket_code, email)
-VALUES ('Z6XV8F', 'kristof.juhasz@uniwien.at'), ('NAZ467', 'kristof.juhasz@uniwien.at');
+VALUES ('Z6XV8F', 'mehrudin.sabani@uniwien.at'), ('NAZ467', 'kristof.juhasz@uniwien.at');
 INSERT INTO on_site_sales (ticket_code, email)
-VALUES ('WE6Z25', 'mehrudin.sabani@uniwien.at'), ('ZV2XDS', 'mehrudin.sabani@uniwien.at');
+VALUES ('WE6Z25', 'mehrudin.sabani@uniwien.at'), ('ZV2XDS', 'kristof.juhasz@uniwien.at');

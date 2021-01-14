@@ -1,0 +1,37 @@
+<div>
+  <h3>On-site tickets</h3>
+  <table>
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>Price</td>
+        <td>Seat No.</td>
+        <td>Refund Date</td>
+      </tr>
+    </thead>
+    <tr *ngFor="let ticket of onsiteTickets">
+      <td>{{ticket.ticket_code}}</td>
+      <td>{{ticket.price}}</td>
+      <td>{{ticket.seat_row}}{{ticket.seat_col}}</td>
+      <td>{{ticket.refund_date}}</td>
+      <td><button mat-raised-button (click)="refundTicket(ticket)">Refund</button></td>
+    </tr>
+  </table>
+</div>
+
+<div>
+  <h3>Streaming tickets</h3>
+  <table>
+    <thead>
+      <tr>
+        <td>Price</td>
+        <td>Unique Code</td>
+      </tr>
+    </thead>
+    <tr *ngFor="let ticket of streamingTickets">
+      <td>{{ticket.price}}</td>
+      <td>{{ticket.ticket_code}}</td>
+    </tr>
+    </table>
+</div>
+

@@ -1,0 +1,47 @@
+<input class=searchbar type="text" placeholder="Enter movie title" [(ngModel)]="searchParamTitle">
+<mat-accordion class="searchbar">
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Advanced Search
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-form-field appearance="fill">
+      <mat-label>Release Year</mat-label>
+      <mat-select (selectionChange)="selectYear($event.value)" [value]="selectedYear">
+        <mat-option *ngFor="let year of yearsList" [value]="year">{{year}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Age Restriction</mat-label>
+      <mat-select (selectionChange)="selectRating($event.value)" [value]="selectedRating">
+        <mat-option *ngFor="let rating of ratingList" [value]="rating">
+          {{rating}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="submit" (click)="setSearchFilters()">Search</button>
+    <button mat-raised-button type="submit" (click)="resetSearchFilters()">Clear Filter</button>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<table class="moviesTable">
+  <thead>
+    <td class="moviename">Name:</td>
+    <td>Release Date:</td>
+    <td>Movie Runtime:</td>
+    <td>Director:</td>
+    <td>Rating:</td>
+    <td>4DX:</td>
+  </thead>
+  <div *ngFor="let movie of filteredMovies">
+    <tr *ngIf="movie.title.toLowerCase().includes(searchParamTitle.toLowerCase())">
+      <td class="moviename"><a [routerLink]="['/moviedetails', movie.title, movie.release_date]">{{movie.title}}</a></td>
+      <td>{{movie.release_date}}</td>
+      <td>{{movie.runtime}}</td>
+      <td>{{movie.director}}</td>
+      <td>{{movie.rating}}</td>
+      <td>{{movie.dx}}</td>
+    </tr>
+  </div>
+</table>

@@ -1,0 +1,28 @@
+<table class="moviesTable">
+    <thead>
+      <td class="moviename">Name:</td>
+      <td>Release Date:</td>
+      <td>Starttime:</td>
+    </thead>
+    <div class="custom-table-row" *ngFor="let screening of screenings">
+        <td class="moviename">{{screening.title}}</td>
+        <td>{{screening.release_date}}</td>
+        <td>{{screening.starttime}}</td>
+        
+        <button mat-raised-button [disabled]="(!userLoggedIn || selectedSeat=='' || selectedRow==0)" (click)="buyOnsiteTicket(screening)">Onsite</button>
+        <button mat-raised-button [disabled]="!userLoggedIn" (click)="buyStreamTicket(screening)">Stream</button>
+    </div>
+
+    <mat-form-field appearance="fill" #rowOption>
+        <mat-label>Row</mat-label>
+        <mat-select (selectionChange)="selectRow($event.value)" [value]="selectedRow">
+          <mat-option *ngFor="let row of rows" [value]="row">{{row}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" #seatOption>
+        <mat-label>Seat</mat-label>
+        <mat-select (selectionChange)="selectSeat($event.value)" [value]="selectedSeat">
+          <mat-option *ngFor="let seat of seats" [value]="seat">{{seat}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+  </table>

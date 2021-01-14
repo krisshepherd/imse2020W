@@ -1,0 +1,41 @@
+.moviesTable{
+    width: 880px;
+    display:block;
+    margin: 0px;
+    margin-left:  auto;
+    margin-right: auto;
+    padding: 5px;
+    background-color:rgb(206, 180, 180) ;
+    text-align: center;
+    border-radius: 5px;
+  }
+thead{
+    display: block;
+    height: 23px;
+    margin: auto;
+    padding: 5px;
+    background-color:rgb(173, 136, 136);
+    font-weight: bold;
+    border-radius: 5px;
+}
+td{
+    width: 150px;
+    font-size:16px;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+.moviename{
+    text-align: justify;
+}
+tr{
+    height: 40px;
+}
+.custom-table-row {
+    display: flex;
+    align-items: center;
+    padding: 10px
+}
+button{
+    margin: 0px 10px;
+}

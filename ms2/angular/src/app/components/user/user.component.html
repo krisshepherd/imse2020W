@@ -1,0 +1,34 @@
+<div class="userPanel">
+  <div class="userInfo">
+    <table>
+      <tr>
+        <th>Name</th>
+        <td>{{userData.first_name}} {{userData.family_name}}</td>
+      </tr>
+      <tr>
+        <th>e-mail</th>
+        <td>{{userData.email}}</td>
+      </tr>
+      <tr>
+        <th>Phone Number</th>
+        <td>{{userData.phone}}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="userCash">
+    <table>
+      <tr>
+        <th>My Balance</th>
+        <td>{{userData.discount}}</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="text" name="money" placeholder="add money to your balance" [(ngModel)]="credit">
+        </td>
+        <td>
+          <button mat-raised-button (click)="uploadCredit()">Add Funds</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

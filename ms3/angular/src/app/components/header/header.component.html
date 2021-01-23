@@ -1,0 +1,35 @@
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Merienda' rel='stylesheet'>
+</head>
+<div class="headerDesign">
+  <img src="../../assets/headerImage.png" height="130px">
+  <p class="headTitle">My Cinema     </p>
+</div>
+<nav class="navbar">
+      <ul>
+        <li class="nav-item"><a routerLink='/'>Home</a></li>
+        <li class="nav-item"><a routerLink="movies">Movie Catalog</a></li>
+        <li class="dropdown">
+          <a class="dropbtn">Ticket Sales</a>
+          <div class="dropdown-content">
+            <a routerLink="reports/adultsales">Ticket sales</a>
+            <a routerLink="reports/dxsales">4DX Poularity</a>
+          </div>
+        </li>
+        <div *ngIf="!userLoggedIn">
+          <li class="signup"><a routerLink="auth/login">Login</a></li>
+          <li class="signup" *ngIf="false"><a routerLink="auth/signup">Sign Up</a></li>
+        </div>
+        <div class="myaccount" *ngIf="userLoggedIn">
+          <li class="dropdown">
+            <a class="dropbtn" routerLink="user/profile">My Account</a>
+            <div class="dropdown-content">
+              <a routerLink="user/profile">Personal Data</a>
+              <a routerLink="user/tickets">My Tickets</a>
+              <a routerLink="/" (click)="logOut()">Log Out</a>
+            </div>
+          </li>
+        </div>
+      </ul>
+</nav>
+

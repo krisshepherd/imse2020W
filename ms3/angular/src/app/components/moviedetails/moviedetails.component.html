@@ -1,0 +1,30 @@
+<div class="movieFrame">
+  <div class="movieHead">
+    <img class="movieImage" src="../../assets/movie_stock.png" height="250px" width="220px">
+    <p class="price">Price: 10$</p>
+    <a routerLink="/screenings/{{movie.title}}/{{movie.release_date}}">
+      <button mat-raised-button class="movieButton" type="submit">Buy Streaming Ticket</button>
+    </a>
+
+    <p class="price">Price: 14$</p>
+    <a routerLink="/screenings/{{movie.title}}/{{movie.release_date}}">
+      <button mat-raised-button class="movieButton" type="submit">Buy On-Site Ticket</button>
+    </a>
+  </div>
+
+  <div class="movieDescription">
+    <h1>{{movie.title}}</h1>
+    <label>Release Date:</label>
+    <p>{{movie.release_date}}</p>
+    <label>Runtime:</label>
+    <p>{{movie.runtime}}</p>
+    <label>Director:</label>
+    <p>{{movie.director}}</p>
+    <label>Director:</label>
+    <p>{{movie.director}}</p>
+    <label>Rating:</label>
+    <p>{{movie.rating}}</p>
+    <label>4DX available:</label>
+    <p>{{movie.dx}}</p>
+  </div>
+</div>

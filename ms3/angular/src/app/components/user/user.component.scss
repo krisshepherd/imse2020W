@@ -1,0 +1,46 @@
+.userPanel{
+  display: block;
+  margin: 10px auto;
+  width: 800px;
+  padding: 20px;
+
+}
+.userInfo{
+  display: inline-block;
+  width: 350px;
+  background-color: rgb(141, 170, 146);
+  border-radius: 10px;
+  margin: 20px;
+  box-shadow: 7px 7px 20px 3px black;
+}
+.userCash{
+  display: inline-block;
+  width: 350px;
+  background-color: rgba(166, 207, 255, 0.781);
+  border-radius: 10px;
+  box-shadow: 7px 7px 20px 3px black;
+}
+
+.userCash, .userInfo{
+  height: 300px;
+  padding: 10px;
+}
+td,th{
+  font-size: 19px;
+  padding: 10px;
+  padding-bottom: 50px;
+}
+th{
+  float:left;
+}
+input{
+  width: 170px;
+  height: 28px;
+  border-radius: 5px;
+}
+button{
+  background-color: rgb(89, 155, 98);
+  color:white;
+  text-shadow: 1px 1px black;
+  margin-right: 20px;
+}

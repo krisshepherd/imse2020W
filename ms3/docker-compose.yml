@@ -14,6 +14,10 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: secret
       MYSQL_DB: covid_cinema
+      MONGO_HOST: mongo
+      MONGO_USER: root
+      MONGO_PASSWORD: secret
+      MONGO_DB: covid_cinema
 
   mysql:
     image: mysql:8.0
@@ -25,6 +29,22 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: covid_cinema
+  
+  mongo:
+    image: mongo:4.4
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: secret
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: secret
 
   adminer:
     image: adminer

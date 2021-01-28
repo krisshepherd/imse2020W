@@ -46,7 +46,7 @@ app.get("/api/movies", (req, res) => {
       mysqlHandler.getMovies().then(movies => res.json(movies));
       break;
     case DBEnum.MongoDB:
-      // here comes the mongo code
+      mongoHandler.getMovies().then(movies => res.json(movies));
       break;
     default:
       console.error("Active Database error!");
@@ -61,7 +61,7 @@ app.get("/api/movie", (req, res) => {
       mysqlHandler.getMovie(title, release).then(movie => res.json(movie));
       break;
     case DBEnum.MongoDB:
-      // here comes the mongo code
+      mongoHandler.getMovie(title, release).then(movie => res.json(movie));
       break;
     default:
       console.error("Active Database error!");
@@ -76,7 +76,7 @@ app.get("/api/onsitetickets", (req, res) => {
         mysqlHandler.getOnsiteTickets(email).then(tickets => res.json(tickets));
         break;
       case DBEnum.MongoDB:
-        // here comes the mongo code
+        mongoHandler.getOnsiteTickets(email).then(tickets => res.json(tickets));
         break;
       default:
         console.error("Active Database error!");
@@ -92,7 +92,7 @@ app.get("/api/streamtickets", (req, res) => {
         mysqlHandler.getStreamTickets(email).then(tickets => res.json(tickets));
         break;
       case DBEnum.MongoDB:
-        // here comes the mongo code
+        mongoHandler.getOnsiteTickets(email).then(tickets => res.json(tickets));
         break;
       default:
         console.error("Active Database error!");
@@ -134,7 +134,7 @@ app.get("/api/screenings", (req,res) => {
       mysqlHandler.getScreenings(title, release).then(screenings => res.json(screenings));
       break;
     case DBEnum.MongoDB:
-      // here comes the mongo code
+      mongoHandler.getScreenings(title, release).then(screenings => res.json(screenings));
       break;
     default:
       console.error("Active Database error!");
@@ -160,7 +160,16 @@ app.get("/api/validateuser", (req,res) => {
       });
       break;
     case DBEnum.MongoDB:
-      // here comes the mongo code
+      mongoHandler.validateUser(email, pwdHash).then(result => {
+        if (result) {
+          console.log('User authentication succesful');
+          userToken.email = email;
+          crypto.randomBytes(48, (err, buffer) => {
+            userToken.value = buffer.toString('hex');
+            res.json(userToken.value);
+          });
+        } else console.log('User authentication failed');
+      });
       break;
     default:
       console.error("Active Database error!");
@@ -174,7 +183,7 @@ app.get("/api/user", (req,res) => {
         mysqlHandler.getUser(userToken.email).then(user => res.json(user));
         break;
       case DBEnum.MongoDB:
-        // here comes the mongo code
+        mongoHandler.getUser(userToken.email).then(user => res.json(user));
         break;
       default:
         console.error("Active Database error!");
@@ -268,48 +277,55 @@ app.post("/api/buyStreamTicket", (req,res) => {
 });
 
 app.get("/api/migrateDB", (req,res) => {
-  // wipe mongo clean
-  mongoHandler.wipeDatabase();
+  if ('mongodb' == req.header('db')){
+    activeDB = DBEnum.MongoDB;
+    // wipe mongo clean
+    mongoHandler.wipeDatabase();
 
-  // cinemas collection
-  mysqlHandler.getTable('cinema').then(cinemas => {
-    mongoHandler.insertMany('cinemas', cinemas).then(()=>{
-      mysqlHandler.getTable('seats').then(seats => {
-        mongoHandler.insertSeats(seats);
+    // cinemas collection
+    mysqlHandler.getTable('cinema').then(cinemas => {
+      mongoHandler.insertMany('cinemas', cinemas).then(()=>{
+        mysqlHandler.getTable('seats').then(seats => {
+          mongoHandler.insertSeats(seats);
+        });
       });
     });
-  });
 
-  // movies collection
-  mysqlHandler.getTable('movies').then(movies => {
-    mongoHandler.insertMany('movies', movies).then(()=> {
-      mysqlHandler.getTable('screenings').then(screenings => {
-        mongoHandler.insertScreenings(screenings);
+    // movies collection
+    mysqlHandler.getTable('movies').then(movies => {
+      mongoHandler.insertMany('movies', movies).then(()=> {
+        mysqlHandler.getTable('screenings').then(screenings => {
+          mongoHandler.insertScreenings(screenings);
+        });
       });
     });
-  });
 
-  // tickets collection
-  mysqlHandler.getTable('on_site_tickets').then(onsite => {
-    mysqlHandler.getTable('stream_tickets').then(stream => {
-      mongoHandler.insertTickets(onsite, stream);
-    });
-  });
-
-  // users collection
-  mysqlHandler.getTable('users').then(users => {
-    mongoHandler.insertMany('users', users).then(() => {
-      mysqlHandler.getTable('stream_sales').then(tickets => {
-        mongoHandler.insertStreamSales(tickets);
-      });
-      mysqlHandler.getTable('on_site_sales').then(tickets => {
-        mongoHandler.insertOnsiteSales(tickets);
+    // tickets collection
+    mysqlHandler.getTable('on_site_tickets').then(onsite => {
+      mysqlHandler.getTable('stream_tickets').then(stream => {
+        mongoHandler.insertTickets(onsite, stream);
       });
     });
-  });
 
-  // return success
-  res.send("DB Migrated!")
+    // users collection
+    mysqlHandler.getTable('users').then(users => {
+      mongoHandler.insertMany('users', users).then(() => {
+        mysqlHandler.getTable('stream_sales').then(tickets => {
+          mongoHandler.insertStreamSales(tickets);
+        });
+        mysqlHandler.getTable('on_site_sales').then(tickets => {
+          mongoHandler.insertOnsiteSales(tickets);
+        });
+      });
+    });
+
+    // return success
+    res.send("DB changed to MongoDB!")
+  } else {
+    activeDB = DBEnum.MySQL;
+    // return success
+    res.send("DB changed to MySQL!")
+  }
 });
 
 // set port, listen for requests

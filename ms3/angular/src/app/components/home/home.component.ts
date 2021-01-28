@@ -13,5 +13,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  activateDB(db: string){
+    this.backendService.activateDB(db).subscribe(msg => alert(msg));
+  }
+
 }
 

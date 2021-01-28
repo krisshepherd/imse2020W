@@ -73,4 +73,9 @@ export class BackendService {
   buyStreamTicket(token: any, screening: Screening): Observable<null>{
     return this.http.post<null>(this.baseUrl + '/buyStreamTicket', { token: token, screening: screening});
   }
+
+  activateDB(db: string){    
+    const headers = new HttpHeaders({ 'db': db});
+    return this.http.get(this.baseUrl + '/migrateDB', {headers});
+  }
 }
